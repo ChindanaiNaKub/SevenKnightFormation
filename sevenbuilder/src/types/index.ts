@@ -14,6 +14,9 @@ export type StarRank = '3★' | '4★' | '5★' | '6★';
 // Attack Type
 export type AttackType = 'Physical' | 'Magic';
 
+// Tier ranking
+export type Tier = 'SSS' | 'SS' | 'S+' | 'S' | 'A+' | 'A' | 'B' | 'C' | 'D';
+
 // AoE/Target info
 export type TargetType = 'All' | '4' | '3' | '2' | 'Single' | 'Normal Attack';
 
@@ -42,6 +45,8 @@ export interface Character {
   maxStarRank: StarRank;
   attackType: AttackType;
   targetType: TargetType;
+  tier?: Tier; // Character tier ranking (SSS, SS, S+, etc.)
+  abilities?: string[]; // List of character abilities/skills
   enhancementLevel?: EnhancementLevel; // Optional for equipment
 }
 
