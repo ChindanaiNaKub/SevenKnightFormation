@@ -29,9 +29,15 @@
         />
         <AppButton
           icon="/icons/icon-share.svg"
-          label="Share"
+          label="Share Link"
           variant="primary"
           @click="$emit('share')"
+        />
+        <AppButton
+          icon="/icons/icon-save.svg"
+          label="Export PNG"
+          variant="ghost"
+          @click="$emit('export')"
         />
       </div>
     </div>
@@ -46,6 +52,7 @@ defineEmits<{
   manage: [];
   save: [];
   share: [];
+  export: [];
 }>();
 </script>
 

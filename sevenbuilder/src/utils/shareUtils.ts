@@ -1,4 +1,5 @@
 import type { Formation, FormationShareData } from '../types';
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
 /**
  * Encode formation to URL-safe string
@@ -16,7 +17,8 @@ export function encodeFormation(formation: Formation): string {
   };
 
   const json = JSON.stringify(shareData);
-  return btoa(json); // Base64 encode
+  // Compress to URI-safe string for shorter links
+  return compressToEncodedURIComponent(json);
 }
 
 /**
@@ -24,7 +26,8 @@ export function encodeFormation(formation: Formation): string {
  */
 export function decodeFormation(encoded: string): FormationShareData | null {
   try {
-    const json = atob(encoded); // Base64 decode
+    const json = decompressFromEncodedURIComponent(encoded);
+    if (!json) return null;
     return JSON.parse(json);
   } catch (error) {
     console.error('Failed to decode formation:', error);

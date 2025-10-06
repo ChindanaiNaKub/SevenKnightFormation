@@ -124,16 +124,16 @@
   - [x] Include formation type in export data
 
 ## Phase 9: Share Functionality
-- [ ] Implement URL-based sharing
-  - [ ] Encode formation data in URL parameters (characters, pet, formation type)
-  - [ ] Generate shareable links
-  - [ ] Load formation from URL on page load with correct formation type
-  - [ ] Compress URL data for shorter links
-- [ ] Add "Copy Link" button with clipboard API
-- [ ] Create screenshot/export to image feature
-  - [ ] Capture formation grid as PNG (including formation type indicator)
-  - [ ] Download image functionality
-  - [ ] Include formation name and type in exported image
+- [x] Implement URL-based sharing
+  - [x] Encode formation data in URL parameters (characters, pet, formation type)
+  - [x] Generate shareable links
+  - [x] Load formation from URL on page load with correct formation type
+  - [x] Compress URL data for shorter links
+- [x] Add "Copy Link" button with clipboard API
+- [x] Create screenshot/export to image feature
+  - [x] Capture formation grid as PNG (including formation type indicator)
+  - [x] Download image functionality
+  - [x] Include formation name and type in exported image
   - [ ] Optional: Add watermark/branding
 - [ ] Social media share buttons (optional)
 

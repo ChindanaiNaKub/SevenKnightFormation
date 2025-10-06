@@ -37,13 +37,11 @@ export function useClickToPlace() {
   /**
    * Place selected item in character slot
    */
-  function placeInCharacterSlot(position: CharacterPosition): boolean {
+  function placeInCharacterSlot(_position: CharacterPosition): boolean {
     if (!isSelecting.value || selectedItemType.value !== 'character' || !selectedItem.value) {
       return false;
     }
 
-    const character = selectedItem.value as Character;
-    
     // Reset selection
     clearSelection();
     
@@ -58,8 +56,6 @@ export function useClickToPlace() {
       return false;
     }
 
-    const pet = selectedItem.value as Pet;
-    
     // Reset selection
     clearSelection();
     
@@ -111,7 +107,7 @@ export function useClickToPlace() {
   /**
    * Handle click on character slot
    */
-  function handleCharacterSlotClick(position: CharacterPosition): { action: 'place' | 'select' | 'swap' | 'remove'; item?: Character | Pet } {
+  function handleCharacterSlotClick(_position: CharacterPosition): { action: 'place' | 'select' | 'swap' | 'remove'; item?: Character | Pet } {
     if (isSelecting.value && selectedItemType.value === 'character') {
       return { action: 'place', item: selectedItem.value as Character };
     }

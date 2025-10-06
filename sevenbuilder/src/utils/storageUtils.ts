@@ -108,7 +108,10 @@ export function renameFormation(formationId: string, newName: string): void {
   const formations = getSavedFormations();
   const idx = formations.findIndex((f) => f.id === formationId);
   if (idx === -1) return;
-  formations[idx] = { ...formations[idx], name: newName, updatedAt: new Date() };
+  const existing = formations[idx]!;
+  existing.name = newName;
+  existing.updatedAt = new Date();
+  formations[idx] = existing;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formations.map(serializeFormation)));
 }
 
@@ -179,10 +182,14 @@ export function serializeFormation(formation: Formation): any {
 }
 
 export function deserializeFormation(raw: any): Formation {
-  return {
+  const normalized: Formation = {
     ...raw,
+    formationType: raw.formationType,
+    characterSlots: raw.characterSlots,
+    petSlot: raw.petSlot,
     createdAt: raw.createdAt ? new Date(raw.createdAt) : undefined,
     updatedAt: raw.updatedAt ? new Date(raw.updatedAt) : undefined,
-  } as Formation;
+  };
+  return normalized;
 }
 

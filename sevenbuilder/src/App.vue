@@ -6,6 +6,7 @@
       @manage="openManager"
       @save="handleSave"
       @share="handleShare"
+      @export="handleExportPng"
     />
 
     <!-- Main Content -->
@@ -87,6 +88,7 @@ import { useClickToPlace } from './composables/useClickToPlace';
 import { characters as allCharacters } from './data/characters';
 import { pets as allPets } from './data/pets';
 import type { Character, Pet, FormationType, CharacterPosition } from './types';
+import { generateShareUrl, copyToClipboard, getFormationFromUrl } from './utils/shareUtils';
 
 const isLoading = ref(true);
 
@@ -194,8 +196,33 @@ function handleSave() {
 }
 
 function handleShare() {
-  // TODO: Implement share functionality
-  alert('Share functionality coming soon!');
+  const url = generateShareUrl({
+    formationType: formationType.value,
+    characterSlots: characterSlots.value,
+    petSlot: petSlot.value,
+  } as any);
+  copyToClipboard(url).then((ok) => {
+    if (ok) {
+      alert('Share link copied to clipboard!');
+    } else {
+      // Fallback: show prompt with URL
+      window.prompt('Copy this link:', url);
+    }
+  });
+}
+
+async function handleExportPng() {
+  const section = document.querySelector('.formation-section') as HTMLElement | null;
+  if (!section) return;
+  const { default: html2canvas } = await import('html2canvas');
+  const canvas = await html2canvas(section, { backgroundColor: '#0b0b1a' });
+  const dataUrl = canvas.toDataURL('image/png');
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = 'formation.png';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 // Drag and Drop Handlers
@@ -291,6 +318,32 @@ function handlePetSlotMouseLeave() {
 
 // Initialize
 onMounted(() => {
+  // Load from URL if present
+  const shareData = getFormationFromUrl();
+  if (shareData) {
+    // Build a formation object from share data using existing state as base
+    const current = {
+      formationType: shareData.formationType,
+      characterSlots: characterSlots.value.map((slot) => ({ ...slot, character: null })),
+      petSlot: { ...petSlot.value, pet: null },
+    } as any;
+
+    // Map characters by id from roster
+    const charById = new Map(allCharacters.map((c: any) => [c.id, c]));
+    for (const { position, characterId } of shareData.characters) {
+      const slot = current.characterSlots.find((s: any) => s.position === position);
+      const character = charById.get(characterId);
+      if (slot && character) slot.character = character;
+    }
+
+    if (shareData.petId) {
+      const pet = allPets.find((p: any) => p.id === shareData.petId) || null;
+      current.petSlot = { ...current.petSlot, pet };
+    }
+
+    setFormation(current);
+  }
+
   // Simulate loading
   setTimeout(() => {
     isLoading.value = false;

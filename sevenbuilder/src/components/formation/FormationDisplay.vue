@@ -18,7 +18,7 @@
           :position-type="slot.positionType"
           :character="slot.character"
           :is-selecting="isSelecting"
-          :is-valid-target="isValidPlacement(slot.position)"
+          :is-valid-target="validPlacement(slot.position)"
           @remove="$emit('removeCharacter', slot.position)"
           @drag-start="$emit('characterDragStart', $event, slot.position)"
           @drop="$emit('characterDrop', $event)"
@@ -33,7 +33,7 @@
         <PetSlot
           :pet="petSlot.pet"
           :is-selecting="isSelecting"
-          :is-valid-target="isValidPlacement('pet')"
+          :is-valid-target="validPlacement('pet')"
           @remove="$emit('removePet')"
           @drag-start="$emit('petDragStart', $event)"
           @drop="$emit('petDrop', $event)"
@@ -86,6 +86,11 @@ const formationTypeName = computed(() => {
   };
   return names[props.formationType];
 });
+
+// Local guard to safely call optional validator from props
+function validPlacement(position: number | 'pet'): boolean {
+  return props.isValidPlacement ? props.isValidPlacement(position) : false;
+}
 </script>
 
 <style scoped>
