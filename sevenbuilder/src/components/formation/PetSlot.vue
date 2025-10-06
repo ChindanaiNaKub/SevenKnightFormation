@@ -74,12 +74,17 @@ function handleImageError(event: Event) {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-normal);
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.2);
 }
 
 .pet-slot:hover {
   border-color: var(--color-secondary-light);
   transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+}
+
+.pet-slot.is-filled {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, var(--color-bg-secondary) 100%);
 }
 
 .slot-label {

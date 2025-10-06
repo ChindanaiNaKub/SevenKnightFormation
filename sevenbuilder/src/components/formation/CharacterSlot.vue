@@ -11,8 +11,18 @@
 
     <!-- Position Type Indicator -->
     <div class="position-indicator">
-      <span v-if="positionType === 'front'" class="indicator-icon">🛡️</span>
-      <span v-else class="indicator-icon">📍</span>
+      <img 
+        v-if="positionType === 'front'" 
+        src="/icons/position-front.svg" 
+        alt="Front Position" 
+        class="indicator-icon"
+      />
+      <img 
+        v-else 
+        src="/icons/position-back.svg" 
+        alt="Back Position" 
+        class="indicator-icon"
+      />
     </div>
 
     <!-- Empty State -->
@@ -110,17 +120,36 @@ function handleImageError(event: Event) {
 }
 
 .character-slot:hover {
-  border-color: var(--color-border-light);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .position-front {
   border-color: var(--color-front);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.position-front:hover {
+  border-color: var(--color-front);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.5);
+}
+
+.position-front.is-filled {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, var(--color-bg-secondary) 100%);
 }
 
 .position-back {
   border-color: var(--color-back);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+}
+
+.position-back:hover {
+  border-color: var(--color-back);
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.5);
+}
+
+.position-back.is-filled {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, var(--color-bg-secondary) 100%);
 }
 
 .position-number {
@@ -144,8 +173,13 @@ function handleImageError(event: Event) {
   position: absolute;
   top: var(--spacing-xs);
   right: var(--spacing-xs);
-  font-size: 1rem;
   z-index: 2;
+}
+
+.indicator-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 /* Empty State */
@@ -157,7 +191,12 @@ function handleImageError(event: Event) {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  opacity: 0.5;
+  opacity: 0.4;
+  transition: opacity var(--transition-normal);
+}
+
+.character-slot:hover .slot-empty {
+  opacity: 0.6;
 }
 
 .placeholder-image {
@@ -252,6 +291,9 @@ function handleImageError(event: Event) {
 .enhancement {
   color: var(--color-warning);
   font-weight: 700;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--radius-sm);
 }
 
 .character-meta {

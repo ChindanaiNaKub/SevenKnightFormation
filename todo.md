@@ -56,25 +56,27 @@
   - [x] Preserve character assignments when switching
   - [x] Validate character positions for new formation type
 
-## Phase 5: Formation Layout Display
-- [ ] Build formation display component
-  - [ ] Create 5 character slot components (positioned based on formation type)
-  - [ ] Create 1 pet slot component (positioned on right side)
-  - [ ] Add visual indicators for empty/filled slots
-  - [ ] Implement hover states
-  - [ ] Add position numbering (1-5 for characters)
-  - [ ] Style front positions (blue shields)
-  - [ ] Style back positions (red cones)
-- [ ] Create character card display
-  - [ ] Character portrait/image
-  - [ ] Level display (Lv. XX)
-  - [ ] Enhancement display (+1 to +5)
-  - [ ] Rarity stars (6-star system based on game)
-  - [ ] Class icon badge
-  - [ ] Remove button (X)
-- [ ] Create pet card display with similar structure
-- [ ] Add formation background styling
-- [ ] Implement responsive positioning that adapts to formation type
+## Phase 5: Formation Layout Display ✅
+- [x] Build formation display component
+  - [x] Create 5 character slot components (positioned based on formation type)
+  - [x] Create 1 pet slot component (positioned on right side)
+  - [x] Add visual indicators for empty/filled slots
+  - [x] Implement hover states
+  - [x] Add position numbering (1-5 for characters)
+  - [x] Style front positions (blue shields with SVG icons)
+  - [x] Style back positions (red cones/crosshairs with SVG icons)
+- [x] Create character card display
+  - [x] Character portrait/image
+  - [x] Level display (Lv. XX)
+  - [x] Enhancement display (+1 to +5)
+  - [x] Rarity stars (6-star system based on game)
+  - [x] Class icon badge
+  - [x] Remove button (X)
+- [x] Create pet card display with similar structure
+- [x] Add formation background styling (gradient with animated pulse effect)
+- [x] Implement responsive positioning that adapts to formation type
+- [x] Enhanced visual effects (glows, gradients, backdrop blur)
+- [x] Improved hover states with smooth transitions
 
 ## Phase 6: Character & Pet Selection System
 - [ ] Build character roster UI (bottom panel)

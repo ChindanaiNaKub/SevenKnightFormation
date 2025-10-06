@@ -64,10 +64,36 @@ const formationTypeName = computed(() => {
 
 <style scoped>
 .formation-display {
-  background: var(--color-bg-secondary);
+  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, rgba(124, 58, 237, 0.08) 100%);
   border-radius: var(--radius-xl);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.formation-display::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
 }
 
 .formation-header {
@@ -77,6 +103,8 @@ const formationTypeName = computed(() => {
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
   border-bottom: 2px solid var(--color-border);
+  position: relative;
+  z-index: 1;
 }
 
 .formation-title {
@@ -110,6 +138,12 @@ const formationTypeName = computed(() => {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-md);
+  background: rgba(15, 15, 35, 0.3);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
 }
 
 .character-slots {

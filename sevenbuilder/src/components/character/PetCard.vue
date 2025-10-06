@@ -57,13 +57,33 @@ function handleImageError(event: Event) {
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
+  position: relative;
+}
+
+.pet-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
 }
 
 .pet-card:hover {
   border-color: var(--color-secondary-light);
   background: var(--color-bg-tertiary);
   transform: translateX(4px);
-  box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+}
+
+.pet-card:hover::before {
+  opacity: 1;
+}
+
+.pet-card:active {
+  transform: translateX(2px) scale(0.98);
 }
 
 .card-image {
