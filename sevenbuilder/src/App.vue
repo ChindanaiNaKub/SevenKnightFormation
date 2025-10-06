@@ -34,6 +34,8 @@
           <CharacterRoster
             :characters="allCharacters"
             :pets="allPets"
+            :character-slots="characterSlots"
+            :pet-slot="petSlot"
             @select-character="handleSelectCharacter"
             @select-pet="handleSelectPet"
           />

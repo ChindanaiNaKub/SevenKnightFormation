@@ -78,17 +78,17 @@
 - [x] Enhanced visual effects (glows, gradients, backdrop blur)
 - [x] Improved hover states with smooth transitions
 
-## Phase 6: Character & Pet Selection System
-- [ ] Build character roster UI (bottom panel)
-  - [ ] Create character card components with portraits
-  - [ ] Display character info (name, level, rarity, class)
-  - [ ] Implement search/filter functionality
-  - [ ] Add sorting options (name, rarity, class, level)
-  - [ ] Add tabs to switch between Characters and Pets
-- [ ] Create scrollable character list
-- [ ] Create scrollable pet list
-- [ ] Implement rarity visual differentiation (star colors/glow)
-- [ ] Add character/pet availability indicators (if needed)
+## Phase 6: Character & Pet Selection System ✅
+- [x] Build character roster UI (bottom panel)
+  - [x] Create character card components with portraits
+  - [x] Display character info (name, level, rarity, class)
+  - [x] Implement search/filter functionality
+  - [x] Add sorting options (name, rarity, class, level)
+  - [x] Add tabs to switch between Characters and Pets
+- [x] Create scrollable character list
+- [x] Create scrollable pet list
+- [x] Implement rarity visual differentiation (star colors/glow)
+- [x] Add character/pet availability indicators (in-formation badges)
 
 ## Phase 7: Interaction & Functionality
 - [ ] Implement drag-and-drop functionality

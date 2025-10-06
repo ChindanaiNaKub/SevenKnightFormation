@@ -8,13 +8,13 @@
           :class="['tab', { active: activeTab === 'characters' }]"
           @click="activeTab = 'characters'"
         >
-          Characters ({{ characters.length }})
+          Characters ({{ filteredCharacters.length }}/{{ characters.length }})
         </button>
         <button
           :class="['tab', { active: activeTab === 'pets' }]"
           @click="activeTab = 'pets'"
         >
-          Pets ({{ pets.length }})
+          Pets ({{ filteredPets.length }}/{{ pets.length }})
         </button>
       </div>
 
@@ -28,17 +28,92 @@
       </div>
     </div>
 
+    <div class="roster-controls">
+      <!-- Character-specific filters -->
+      <div v-if="activeTab === 'characters'" class="controls-row">
+        <div class="control-group">
+          <label class="control-label">Sort By:</label>
+          <select v-model="sortBy" class="control-select">
+            <option value="name">Name</option>
+            <option value="rarity">Rarity</option>
+            <option value="class">Class</option>
+            <option value="level">Level</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Rarity:</label>
+          <select v-model="rarityFilter" class="control-select">
+            <option value="all">All</option>
+            <option value="Legendary (SP)">Legendary (SP)</option>
+            <option value="Legendary">Legendary</option>
+            <option value="Rare">Rare</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Common">Common</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Class:</label>
+          <select v-model="classFilter" class="control-select">
+            <option value="all">All</option>
+            <option value="Attack">Attack</option>
+            <option value="Magic">Magic</option>
+            <option value="Defence">Defence</option>
+            <option value="Support">Support</option>
+            <option value="Universal">Universal</option>
+          </select>
+        </div>
+
+        <button @click="clearFilters" class="clear-button" title="Clear filters">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Pet-specific filters -->
+      <div v-else class="controls-row">
+        <div class="control-group">
+          <label class="control-label">Sort By:</label>
+          <select v-model="petSortBy" class="control-select">
+            <option value="name">Name</option>
+            <option value="rarity">Rarity</option>
+            <option value="level">Level</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Rarity:</label>
+          <select v-model="petRarityFilter" class="control-select">
+            <option value="all">All</option>
+            <option value="Legendary">Legendary</option>
+            <option value="Rare">Rare</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Common">Common</option>
+          </select>
+        </div>
+
+        <button @click="clearPetFilters" class="clear-button" title="Clear filters">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <div class="roster-content">
       <!-- Characters Tab -->
       <div v-if="activeTab === 'characters'" class="roster-grid">
         <CharacterCard
-          v-for="character in filteredCharacters"
+          v-for="character in sortedAndFilteredCharacters"
           :key="character.id"
           :character="character"
+          :is-in-formation="isCharacterInFormation(character.id)"
           @select="$emit('selectCharacter', character)"
         />
         
-        <div v-if="filteredCharacters.length === 0" class="empty-state">
+        <div v-if="sortedAndFilteredCharacters.length === 0" class="empty-state">
           <p>No characters found</p>
         </div>
       </div>
@@ -46,13 +121,14 @@
       <!-- Pets Tab -->
       <div v-if="activeTab === 'pets'" class="roster-grid">
         <PetCard
-          v-for="pet in filteredPets"
+          v-for="pet in sortedAndFilteredPets"
           :key="pet.id"
           :pet="pet"
+          :is-in-formation="isPetInFormation(pet.id)"
           @select="$emit('selectPet', pet)"
         />
         
-        <div v-if="filteredPets.length === 0" class="empty-state">
+        <div v-if="sortedAndFilteredPets.length === 0" class="empty-state">
           <p>No pets found</p>
         </div>
       </div>
@@ -62,46 +138,149 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import type { Character, Pet } from '../../types';
+import type { Character, Pet, CharacterSlot, PetSlot } from '../../types';
 import CharacterCard from './CharacterCard.vue';
 import PetCard from './PetCard.vue';
 
 interface Props {
   characters: Character[];
   pets: Pet[];
+  characterSlots?: CharacterSlot[];
+  petSlot?: PetSlot;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  characterSlots: () => [],
+  petSlot: () => ({ pet: null }),
+});
 
 defineEmits<{
   selectCharacter: [character: Character];
   selectPet: [pet: Pet];
 }>();
 
+// State
 const activeTab = ref<'characters' | 'pets'>('characters');
 const searchQuery = ref('');
+const sortBy = ref<'name' | 'rarity' | 'class' | 'level'>('name');
+const petSortBy = ref<'name' | 'rarity' | 'level'>('name');
+const rarityFilter = ref<string>('all');
+const classFilter = ref<string>('all');
+const petRarityFilter = ref<string>('all');
 
+// Helper functions
+const rarityOrder: Record<string, number> = {
+  'Legendary (SP)': 5,
+  'Legendary': 4,
+  'Rare': 3,
+  'Uncommon': 2,
+  'Common': 1,
+};
+
+function isCharacterInFormation(characterId: string): boolean {
+  return props.characterSlots.some(slot => slot.character?.id === characterId);
+}
+
+function isPetInFormation(petId: string): boolean {
+  return props.petSlot.pet?.id === petId;
+}
+
+// Search and filter characters
 const filteredCharacters = computed(() => {
-  if (!searchQuery.value) return props.characters;
-  
-  const query = searchQuery.value.toLowerCase();
-  return props.characters.filter(char =>
-    char.name.toLowerCase().includes(query) ||
-    char.class.toLowerCase().includes(query) ||
-    char.rarity.toLowerCase().includes(query)
-  );
+  let result = props.characters;
+
+  // Search filter
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase();
+    result = result.filter(char =>
+      char.name.toLowerCase().includes(query) ||
+      char.class.toLowerCase().includes(query) ||
+      char.rarity.toLowerCase().includes(query)
+    );
+  }
+
+  // Rarity filter
+  if (rarityFilter.value !== 'all') {
+    result = result.filter(char => char.rarity === rarityFilter.value);
+  }
+
+  // Class filter
+  if (classFilter.value !== 'all') {
+    result = result.filter(char => char.class === classFilter.value);
+  }
+
+  return result;
 });
 
-const filteredPets = computed(() => {
-  if (!searchQuery.value) return props.pets;
-  
-  const query = searchQuery.value.toLowerCase();
-  return props.pets.filter(pet =>
-    pet.name.toLowerCase().includes(query) ||
-    pet.rarity.toLowerCase().includes(query) ||
-    pet.passiveSkill.toLowerCase().includes(query)
-  );
+// Sort characters
+const sortedAndFilteredCharacters = computed(() => {
+  const result = [...filteredCharacters.value];
+
+  switch (sortBy.value) {
+    case 'name':
+      return result.sort((a, b) => a.name.localeCompare(b.name));
+    case 'rarity':
+      return result.sort((a, b) => (rarityOrder[b.rarity] || 0) - (rarityOrder[a.rarity] || 0));
+    case 'class':
+      return result.sort((a, b) => a.class.localeCompare(b.class));
+    case 'level':
+      return result.sort((a, b) => b.level - a.level);
+    default:
+      return result;
+  }
 });
+
+// Search and filter pets
+const filteredPets = computed(() => {
+  let result = props.pets;
+
+  // Search filter
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase();
+    result = result.filter(pet =>
+      pet.name.toLowerCase().includes(query) ||
+      pet.rarity.toLowerCase().includes(query) ||
+      pet.passiveSkill.toLowerCase().includes(query)
+    );
+  }
+
+  // Rarity filter
+  if (petRarityFilter.value !== 'all') {
+    result = result.filter(pet => pet.rarity === petRarityFilter.value);
+  }
+
+  return result;
+});
+
+// Sort pets
+const sortedAndFilteredPets = computed(() => {
+  const result = [...filteredPets.value];
+
+  switch (petSortBy.value) {
+    case 'name':
+      return result.sort((a, b) => a.name.localeCompare(b.name));
+    case 'rarity':
+      return result.sort((a, b) => (rarityOrder[b.rarity] || 0) - (rarityOrder[a.rarity] || 0));
+    case 'level':
+      return result.sort((a, b) => b.level - a.level);
+    default:
+      return result;
+  }
+});
+
+// Clear filters
+function clearFilters() {
+  sortBy.value = 'name';
+  rarityFilter.value = 'all';
+  classFilter.value = 'all';
+  searchQuery.value = '';
+}
+
+function clearPetFilters() {
+  petSortBy.value = 'name';
+  petRarityFilter.value = 'all';
+  searchQuery.value = '';
+}
 </script>
 
 <style scoped>
@@ -111,7 +290,7 @@ const filteredPets = computed(() => {
   box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  max-height: 500px;
+  max-height: 550px;
 }
 
 .roster-header {
@@ -145,6 +324,7 @@ const filteredPets = computed(() => {
   color: var(--color-text-secondary);
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -179,6 +359,75 @@ const filteredPets = computed(() => {
 
 .search-input::placeholder {
   color: var(--color-text-muted);
+}
+
+/* Controls Section */
+.roster-controls {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.control-label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.control-select {
+  padding: 0.375rem var(--spacing-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: var(--font-xs);
+  outline: none;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.control-select:hover {
+  border-color: var(--color-primary);
+}
+
+.control-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+}
+
+.clear-button {
+  padding: 0.375rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.clear-button:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .roster-content {
@@ -225,6 +474,14 @@ const filteredPets = computed(() => {
     min-width: 0;
   }
 
+  .roster-controls {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .controls-row {
+    gap: var(--spacing-sm);
+  }
+
   .roster-grid {
     grid-template-columns: 1fr;
   }
@@ -237,7 +494,15 @@ const filteredPets = computed(() => {
 
   .tab {
     padding: var(--spacing-xs) var(--spacing-sm);
-    font-size: var(--font-xs);
+    font-size: 0.625rem;
+  }
+
+  .control-group {
+    flex: 1 1 auto;
+  }
+
+  .control-select {
+    min-width: 80px;
   }
 }
 </style>

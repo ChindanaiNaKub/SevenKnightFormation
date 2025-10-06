@@ -1,11 +1,20 @@
 <template>
-  <div class="pet-card" @click="$emit('select')">
+  <div 
+    class="pet-card" 
+    :class="{ 'in-formation': isInFormation }"
+    @click="$emit('select')"
+  >
     <div class="card-image">
       <img
         :src="pet.image"
         :alt="pet.name"
         @error="handleImageError"
       />
+      <div v-if="isInFormation" class="in-formation-badge" title="In Formation">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
     </div>
     
     <div class="card-info">
@@ -16,7 +25,7 @@
       
       <div class="card-meta">
         <span class="level">Lv.{{ pet.level }}</span>
-        <span class="rarity" :class="`rarity-${pet.rarity.toLowerCase()}`">
+        <span class="rarity" :class="`rarity-${getRarityClass(pet.rarity)}`">
           {{ pet.rarity }}
         </span>
       </div>
@@ -33,13 +42,20 @@ import type { Pet } from '../../types';
 
 interface Props {
   pet: Pet;
+  isInFormation?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  isInFormation: false,
+});
 
 defineEmits<{
   select: [];
 }>();
+
+function getRarityClass(rarity: string): string {
+  return rarity.toLowerCase().replace(/\s+/g, '-');
+}
 
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
@@ -86,7 +102,19 @@ function handleImageError(event: Event) {
   transform: translateX(2px) scale(0.98);
 }
 
+/* In Formation State */
+.pet-card.in-formation {
+  opacity: 0.6;
+  border-color: var(--color-success);
+}
+
+.pet-card.in-formation:hover {
+  opacity: 0.8;
+  border-color: var(--color-success);
+}
+
 .card-image {
+  position: relative;
   width: 60px;
   height: 60px;
   flex-shrink: 0;
@@ -98,6 +126,22 @@ function handleImageError(event: Event) {
   object-fit: cover;
   border-radius: var(--radius-sm);
   background: var(--color-bg-tertiary);
+}
+
+.in-formation-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-success);
+  border-radius: 50%;
+  border: 2px solid var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1;
 }
 
 .card-info {
@@ -166,6 +210,7 @@ function handleImageError(event: Event) {
 .rarity-legendary {
   background: rgba(168, 85, 247, 0.2);
   color: #a855f7;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
 }
 
 .card-skill {

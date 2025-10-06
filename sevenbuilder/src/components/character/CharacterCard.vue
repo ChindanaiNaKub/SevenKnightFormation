@@ -1,5 +1,9 @@
 <template>
-  <div class="character-card" @click="$emit('select')">
+  <div 
+    class="character-card" 
+    :class="{ 'in-formation': isInFormation }"
+    @click="$emit('select')"
+  >
     <div class="card-image">
       <img
         :src="character.image"
@@ -11,19 +15,24 @@
         :alt="character.class"
         class="class-badge"
       />
+      <div v-if="isInFormation" class="in-formation-badge" title="In Formation">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
     </div>
     
     <div class="card-info">
       <div class="card-header">
         <span class="character-name">{{ character.name }}</span>
-        <div class="stars">
+        <div class="stars" :class="`stars-${getRarityClass(character.rarity)}`">
           <span v-for="n in getStarCount(character.maxStarRank)" :key="n" class="star">★</span>
         </div>
       </div>
       
       <div class="card-meta">
         <span class="level">Lv.{{ character.level }}</span>
-        <span class="rarity" :class="`rarity-${character.rarity.toLowerCase().replace(/\s+/g, '-')}`">
+        <span class="rarity" :class="`rarity-${getRarityClass(character.rarity)}`">
           {{ character.rarity }}
         </span>
       </div>
@@ -36,9 +45,12 @@ import type { Character } from '../../types';
 
 interface Props {
   character: Character;
+  isInFormation?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  isInFormation: false,
+});
 
 defineEmits<{
   select: [];
@@ -50,6 +62,10 @@ function getStarCount(starRank: string): number {
 
 function getClassIcon(characterClass: string): string {
   return `/icons/class-${characterClass.toLowerCase()}.svg`;
+}
+
+function getRarityClass(rarity: string): string {
+  return rarity.toLowerCase().replace(/\s+/g, '-');
 }
 
 function handleImageError(event: Event) {
@@ -97,6 +113,17 @@ function handleImageError(event: Event) {
   transform: translateX(2px) scale(0.98);
 }
 
+/* In Formation State */
+.character-card.in-formation {
+  opacity: 0.6;
+  border-color: var(--color-success);
+}
+
+.character-card.in-formation:hover {
+  opacity: 0.8;
+  border-color: var(--color-success);
+}
+
 .card-image {
   position: relative;
   width: 60px;
@@ -120,6 +147,22 @@ function handleImageError(event: Event) {
   height: 20px;
   border-radius: 50%;
   border: 2px solid var(--color-bg-secondary);
+}
+
+.in-formation-badge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 20px;
+  height: 20px;
+  background: var(--color-success);
+  border-radius: 50%;
+  border: 2px solid var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 1;
 }
 
 .card-info {
@@ -147,6 +190,7 @@ function handleImageError(event: Event) {
   text-overflow: ellipsis;
 }
 
+/* Star colors based on rarity */
 .stars {
   display: flex;
   gap: 1px;
@@ -156,6 +200,45 @@ function handleImageError(event: Event) {
 
 .star {
   color: var(--color-rarity-5);
+  transition: all var(--transition-fast);
+}
+
+/* Legendary SP - Gold/Orange glow */
+.stars-legendary-sp .star {
+  color: #fbbf24;
+  filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.8));
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+/* Legendary - Purple glow */
+.stars-legendary .star {
+  color: #a855f7;
+  filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.6));
+}
+
+/* Rare - Blue glow */
+.stars-rare .star {
+  color: #3b82f6;
+  filter: drop-shadow(0 0 1px rgba(59, 130, 246, 0.5));
+}
+
+/* Uncommon - Green */
+.stars-uncommon .star {
+  color: #84cc16;
+}
+
+/* Common - Gray */
+.stars-common .star {
+  color: #9ca3af;
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 5px rgba(251, 191, 36, 1));
+  }
 }
 
 .card-meta {
@@ -194,11 +277,14 @@ function handleImageError(event: Event) {
 .rarity-legendary {
   background: rgba(168, 85, 247, 0.2);
   color: #a855f7;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
 }
 
 .rarity-legendary-sp {
   background: linear-gradient(135deg, rgba(234, 179, 8, 0.3), rgba(249, 115, 22, 0.3));
   color: #f97316;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+  animation: pulse-gold 2s ease-in-out infinite;
 }
 </style>
 
