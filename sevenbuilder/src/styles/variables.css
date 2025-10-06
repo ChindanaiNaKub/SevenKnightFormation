@@ -1,0 +1,79 @@
+/**
+ * Seven Knights Rebirth Theme Variables
+ * Dark/Purple aesthetic matching the game
+ */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #7c3aed; /* Purple */
+  --color-primary-dark: #5b21b6;
+  --color-primary-light: #a78bfa;
+  
+  /* Secondary Colors */
+  --color-secondary: #ec4899; /* Pink */
+  --color-secondary-dark: #be185d;
+  --color-secondary-light: #f9a8d4;
+  
+  /* Background Colors */
+  --color-bg-primary: #0f0f23; /* Dark blue-black */
+  --color-bg-secondary: #1a1a3e;
+  --color-bg-tertiary: #252550;
+  
+  /* Text Colors */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  
+  /* Rarity Colors */
+  --color-rarity-1: #9ca3af; /* 1-star: Gray */
+  --color-rarity-2: #84cc16; /* 2-star: Green */
+  --color-rarity-3: #3b82f6; /* 3-star: Blue */
+  --color-rarity-4: #a855f7; /* 4-star: Purple */
+  --color-rarity-5: #eab308; /* 5-star: Gold */
+  --color-rarity-6: #f97316; /* 6-star: Orange/Red */
+  
+  /* Position Type Colors */
+  --color-front: #3b82f6; /* Blue for front positions */
+  --color-back: #ef4444; /* Red for back positions */
+  
+  /* UI Colors */
+  --color-border: #334155;
+  --color-border-light: #475569;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.5);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Font Sizes */
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 1.875rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
