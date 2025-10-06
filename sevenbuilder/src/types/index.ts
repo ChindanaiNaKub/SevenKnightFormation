@@ -2,13 +2,22 @@
  * Seven Knights Rebirth Formation Builder - Type Definitions
  */
 
-// Character rarity levels (6-star system)
-export type Rarity = 1 | 2 | 3 | 4 | 5 | 6;
+// Character rarity levels
+export type Rarity = 'Common' | 'Uncommon' | 'Rare' | 'Legendary' | 'Legendary (SP)';
 
-// Character classes/types
-export type CharacterClass = 'tank' | 'warrior' | 'mage' | 'assassin' | 'support' | 'ranger';
+// Character classes/types (icons shown in game)
+export type CharacterClass = 'Attack' | 'Magic' | 'Defence' | 'Support' | 'Universal';
 
-// Enhancement levels
+// Max Star Rank (awakening level)
+export type StarRank = '3★' | '4★' | '5★' | '6★';
+
+// Attack Type
+export type AttackType = 'Physical' | 'Magic';
+
+// AoE/Target info
+export type TargetType = 'All' | '4' | '3' | '2' | 'Single' | 'Normal Attack';
+
+// Enhancement levels (for items/equipment)
 export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5;
 
 // Formation position (1-5 for characters)
@@ -30,7 +39,10 @@ export interface Character {
   level: number;
   rarity: Rarity;
   class: CharacterClass;
-  enhancementLevel: EnhancementLevel;
+  maxStarRank: StarRank;
+  attackType: AttackType;
+  targetType: TargetType;
+  enhancementLevel?: EnhancementLevel; // Optional for equipment
 }
 
 /**
@@ -42,7 +54,8 @@ export interface Pet {
   image: string; // URL or path to pet image
   level: number;
   rarity: Rarity;
-  abilities?: string[]; // Pet abilities
+  passiveSkill: string; // Pet passive skill name
+  effect: string; // Pet passive skill effect description
 }
 
 /**

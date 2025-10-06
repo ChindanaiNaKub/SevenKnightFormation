@@ -11,18 +11,22 @@
 - [X] Set up package manager and install dependencies
 
 ## Phase 2: Data & Assets
-- [ ] Create character database/JSON file
-  - [ ] Character names
-  - [ ] Character images/avatars (portrait style)
-  - [ ] Character classes/types (icons: shield, sword, magic, etc.)
-  - [ ] Rarity levels (star system)
-  - [ ] Level information
-  - [ ] Enhancement levels (+1 to +5)
-- [ ] Create pet database/JSON file
-  - [ ] Pet names and images
-  - [ ] Pet stats and abilities
-- [ ] Prepare placeholder images for empty character/pet slots
-- [ ] Design/gather UI icons (reset, share, save, remove, etc.)
+- [x] Create character database/JSON file
+  - [x] **Data Source**: https://gamewith.net/sevenknights-rebirth/70396
+  - [x] Extract character names from GameWith character list
+  - [x] Download character images/avatars (portrait style) from character pages
+  - [x] Character classes/types (icons: Attack, Magic, Defence, Support, Universal)
+  - [x] Rarity levels (Legendary (SP), Legendary, Rare, Uncommon, Common)
+  - [x] Max Star Rank (6★, 5★, 4★, 3★)
+  - [x] Attack Type (Physical, Magic)
+  - [x] AoE/Target info (All, 4, 3, 2, Single, Normal Attack)
+- [x] Create pet database/JSON file
+  - [x] **Data Source**: https://gamewith.net/sevenknights-rebirth/70753
+  - [x] Extract pet names from GameWith pet list
+  - [x] Download pet images from pet pages
+  - [x] Pet passive skills and effects
+- [x] Prepare placeholder images for empty character/pet slots
+- [x] Design/gather UI icons (reset, share, save, remove, etc.)
 - [ ] Create formation background/styling assets
 
 ## Phase 3: Core UI Layout
