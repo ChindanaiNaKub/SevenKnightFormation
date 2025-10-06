@@ -17,11 +17,15 @@
         :alt="character.name"
         @error="handleImageError"
       />
-      <img
-        :src="getClassIcon(character.class)"
-        :alt="character.class"
-        class="class-badge"
-      />
+      <div class="class-badge">
+        <img
+          :src="getClassIcon(character.class)"
+          :alt="character.class"
+          class="class-badge-img"
+          @error="handleClassIconError"
+          @load="handleClassIconLoad"
+        />
+      </div>
       <div v-if="isInFormation" class="in-formation-badge" title="In Formation">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
           <polyline points="20 6 9 17 4 12"/>
@@ -62,6 +66,8 @@ const props = withDefaults(defineProps<Props>(), {
   isSelected: false,
 });
 
+
+
 const emit = defineEmits<{
   select: [];
   dragStart: [character: Character];
@@ -84,6 +90,22 @@ function getRarityClass(rarity: string): string {
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = '/placeholder-character.svg';
+}
+
+function handleClassIconError(event: Event) {
+  const img = event.target as HTMLImageElement;
+  const badge = img.closest('.class-badge') as HTMLElement;
+  if (badge) {
+    badge.style.display = 'none';
+  }
+}
+
+function handleClassIconLoad(event: Event) {
+  const img = event.target as HTMLImageElement;
+  const badge = img.closest('.class-badge') as HTMLElement;
+  if (badge) {
+    badge.classList.add('show');
+  }
 }
 
 function handleDragStart(event: DragEvent) {
@@ -243,16 +265,32 @@ function createDragImage(): HTMLElement {
   object-fit: cover;
   border-radius: var(--radius-sm);
   background: var(--color-bg-tertiary);
+  position: relative;
+  z-index: 1;
 }
 
 .class-badge {
   position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 20px;
-  height: 20px;
+  bottom: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: 2px solid var(--color-bg-secondary);
+  border: 1px solid var(--color-bg-secondary);
+  z-index: 2;
+  pointer-events: none;
+  background: var(--color-bg-secondary);
+  display: none; /* Hidden by default */
+}
+
+.class-badge.show {
+  display: block;
+}
+
+.class-badge-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .in-formation-badge {
@@ -268,7 +306,7 @@ function createDragImage(): HTMLElement {
   align-items: center;
   justify-content: center;
   color: white;
-  z-index: 1;
+  z-index: 2;
 }
 
 .card-info {
