@@ -10,6 +10,14 @@
     <!-- Main Content -->
     <main class="main-content">
       <div class="content-wrapper">
+        <!-- Formation Type Selector -->
+        <section class="selector-section">
+          <FormationTypeSelector
+            :selected-type="formationType"
+            @select="handleChangeFormationType"
+          />
+        </section>
+
         <!-- Formation Display -->
         <section class="formation-section">
           <FormationDisplay
@@ -44,12 +52,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import AppHeader from './components/ui/AppHeader.vue';
+import FormationTypeSelector from './components/formation/FormationTypeSelector.vue';
 import FormationDisplay from './components/formation/FormationDisplay.vue';
 import CharacterRoster from './components/character/CharacterRoster.vue';
 import { useFormation } from './composables/useFormation';
 import { characters as allCharacters } from './data/characters';
 import { pets as allPets } from './data/pets';
-import type { Character, Pet } from './types';
+import type { Character, Pet, FormationType, CharacterPosition } from './types';
 
 const isLoading = ref(true);
 
@@ -58,6 +67,7 @@ const {
   formationType,
   characterSlots,
   petSlot,
+  changeFormationType,
   addCharacter,
   removeCharacter,
   addPet,
@@ -66,6 +76,10 @@ const {
 } = useFormation();
 
 // Handlers
+function handleChangeFormationType(type: FormationType) {
+  changeFormationType(type);
+}
+
 function handleSelectCharacter(character: Character) {
   // Find first empty slot
   const emptySlot = characterSlots.value.find(slot => !slot.character);
@@ -82,7 +96,7 @@ function handleSelectPet(pet: Pet) {
 }
 
 function handleRemoveCharacter(position: number) {
-  removeCharacter(position);
+  removeCharacter(position as CharacterPosition);
 }
 
 function handleRemovePet() {
@@ -136,6 +150,7 @@ onMounted(() => {
   gap: var(--spacing-lg);
 }
 
+.selector-section,
 .formation-section,
 .roster-section {
   animation: fadeIn 0.5s ease;

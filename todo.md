@@ -40,21 +40,21 @@
 - [x] Add loading states and animations
 
 ## Phase 4: Formation Type Selection
-- [ ] Create formation type selector UI
-  - [ ] 4 formation type cards (Basic, Normal, Attack, Defense)
-  - [ ] Display formation icons/thumbnails
-  - [ ] Show formation level (Lv.1, Lv.5, etc.)
-  - [ ] Highlight selected formation type
-  - [ ] Formation type descriptions
-- [ ] Implement formation type data structure
-  - [ ] Basic: 2 front (pos 1,2), 3 back (pos 3,4,5)
-  - [ ] Normal: 3 front (pos 1,2,3), 2 back (pos 4,5)
-  - [ ] Attack: 1 front (pos 1), 4 back (pos 2,3,4,5)
-  - [ ] Defense: 4 front (pos 1,2,3,4), 1 back (pos 5)
-- [ ] Add formation type switching functionality
-  - [ ] Change formation layout when type is selected
-  - [ ] Preserve character assignments when switching
-  - [ ] Validate character positions for new formation type
+- [x] Create formation type selector UI
+  - [x] 4 formation type cards (Basic, Normal, Attack, Defense)
+  - [x] Display formation icons/thumbnails
+  - [x] Show formation level (Lv.1, Lv.5, etc.)
+  - [x] Highlight selected formation type
+  - [x] Formation type descriptions
+- [x] Implement formation type data structure
+  - [x] Basic: 2 front (pos 1,2), 3 back (pos 3,4,5)
+  - [x] Normal: 3 front (pos 1,2,3), 2 back (pos 4,5)
+  - [x] Attack: 1 front (pos 1), 4 back (pos 2,3,4,5)
+  - [x] Defense: 4 front (pos 1,2,3,4), 1 back (pos 5)
+- [x] Add formation type switching functionality
+  - [x] Change formation layout when type is selected
+  - [x] Preserve character assignments when switching
+  - [x] Validate character positions for new formation type
 
 ## Phase 5: Formation Layout Display
 - [ ] Build formation display component
