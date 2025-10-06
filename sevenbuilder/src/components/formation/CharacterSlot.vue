@@ -72,12 +72,6 @@
           </button>
         </div>
         
-        <div class="character-stats">
-          <span class="level">Lv.{{ character.level }}</span>
-          <span v-if="character.enhancementLevel" class="enhancement">
-            +{{ character.enhancementLevel }}
-          </span>
-        </div>
         
         <div class="character-meta">
           <div class="stars">
@@ -375,20 +369,24 @@ function handleMouseLeave() {
 .slot-filled {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 .character-image {
   width: 100%;
-  height: 110px;
+  height: 100%;
   object-fit: cover;
   background: var(--color-bg-tertiary);
 }
 
 .character-info {
-  flex: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
   padding: var(--spacing-sm);
+  padding-top: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -438,24 +436,6 @@ function handleMouseLeave() {
   transform: scale(1.1);
 }
 
-.character-stats {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  font-size: var(--font-xs);
-}
-
-.level {
-  color: var(--color-text-secondary);
-}
-
-.enhancement {
-  color: var(--color-warning);
-  font-weight: 700;
-  background: rgba(245, 158, 11, 0.15);
-  padding: 0.125rem 0.25rem;
-  border-radius: var(--radius-sm);
-}
 
 .character-meta {
   display: flex;
@@ -485,20 +465,12 @@ function handleMouseLeave() {
     width: 120px;
     height: 160px;
   }
-
-  .character-image {
-    height: 95px;
-  }
 }
 
 @media (max-width: 480px) {
   .character-slot {
     width: 100px;
     height: 140px;
-  }
-
-  .character-image {
-    height: 80px;
   }
 
   .character-name {
