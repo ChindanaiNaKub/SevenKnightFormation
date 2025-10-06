@@ -17,6 +17,12 @@
         />
         <AppButton
           icon="/icons/icon-save.svg"
+          label="Manage"
+          variant="ghost"
+          @click="$emit('manage')"
+        />
+        <AppButton
+          icon="/icons/icon-save.svg"
           label="Save"
           variant="secondary"
           @click="$emit('save')"
@@ -37,6 +43,7 @@ import AppButton from './AppButton.vue';
 
 defineEmits<{
   reset: [];
+  manage: [];
   save: [];
   share: [];
 }>();

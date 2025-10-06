@@ -90,38 +90,38 @@
 - [x] Implement rarity visual differentiation (star colors/glow)
 - [x] Add character/pet availability indicators (in-formation badges)
 
-## Phase 7: Interaction & Functionality
-- [ ] Implement drag-and-drop functionality
-  - [ ] Drag character from roster to character slots (1-5)
-  - [ ] Drag pet from roster to pet slot
-  - [ ] Drag between character slots to reorder
-  - [ ] Drag to remove (to trash/remove zone or outside formation)
-  - [ ] Visual feedback during drag operations
-- [ ] Alternative: Click-to-place functionality for mobile
-  - [ ] Click character/pet to select
-  - [ ] Click empty slot to place
-  - [ ] Click filled slot to swap/remove
-- [ ] Add character/pet removal functionality (X button)
+## Phase 7: Interaction & Functionality ✅
+- [x] Implement drag-and-drop functionality
+  - [x] Drag character from roster to character slots (1-5)
+  - [x] Drag pet from roster to pet slot
+  - [x] Drag between character slots to reorder
+  - [x] Drag to remove (to trash/remove zone or outside formation)
+  - [x] Visual feedback during drag operations
+- [x] Alternative: Click-to-place functionality for mobile
+  - [x] Click character/pet to select
+  - [x] Click empty slot to place
+  - [x] Click filled slot to swap/remove
+- [x] Add character/pet removal functionality (X button)
 - [ ] Implement undo/redo functionality
-- [ ] Add formation validation
-  - [ ] No duplicate characters
-  - [ ] Max 5 characters + 1 pet
-  - [ ] Prevent placing character in pet slot and vice versa
+- [x] Add formation validation
+  - [x] No duplicate characters
+  - [x] Max 5 characters + 1 pet
+  - [x] Prevent placing character in pet slot and vice versa
 
 ## Phase 8: Save & Load Features
-- [ ] Implement local storage for formations
-  - [ ] Auto-save current formation (including formation type)
-  - [ ] Save multiple formations with names
-  - [ ] Load saved formations with correct formation type
-  - [ ] Save character positions, pet, and formation type together
-- [ ] Create formation management UI
-  - [ ] List saved formations with preview
-  - [ ] Show formation type in saved formation list
-  - [ ] Delete formations
-  - [ ] Rename formations
-  - [ ] Duplicate formations
-- [ ] Add import/export functionality (JSON format)
-  - [ ] Include formation type in export data
+- [x] Implement local storage for formations
+  - [x] Auto-save current formation (including formation type)
+  - [x] Save multiple formations with names
+  - [x] Load saved formations with correct formation type
+  - [x] Save character positions, pet, and formation type together
+- [x] Create formation management UI
+  - [x] List saved formations with preview
+  - [x] Show formation type in saved formation list
+  - [x] Delete formations
+  - [x] Rename formations
+  - [x] Duplicate formations
+- [x] Add import/export functionality (JSON format)
+  - [x] Include formation type in export data
 
 ## Phase 9: Share Functionality
 - [ ] Implement URL-based sharing

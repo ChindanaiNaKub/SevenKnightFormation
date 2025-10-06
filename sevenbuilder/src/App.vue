@@ -3,6 +3,7 @@
     <!-- Header -->
     <AppHeader
       @reset="handleReset"
+      @manage="openManager"
       @save="handleSave"
       @share="handleShare"
     />
@@ -25,7 +26,7 @@
             :character-slots="characterSlots"
             :pet-slot="petSlot"
             :is-selecting="isSelecting"
-            :is-valid-placement="isValidPlacement"
+            :is-valid-placement="uiIsValidPlacement"
             @remove-character="handleRemoveCharacter"
             @remove-pet="handleRemovePet"
             @character-drag-start="handleCharacterDragStart"
@@ -59,6 +60,13 @@
       </div>
     </main>
 
+    <!-- Formation Manager Modal -->
+    <FormationManager
+      v-if="showManager"
+      @close="closeManager"
+      @load="handleLoadFormation"
+    />
+
     <!-- Loading State -->
     <div v-if="isLoading" class="loading-overlay">
       <div class="loading-spinner"></div>
@@ -70,6 +78,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import AppHeader from './components/ui/AppHeader.vue';
+import FormationManager from './components/ui/FormationManager.vue';
 import FormationTypeSelector from './components/formation/FormationTypeSelector.vue';
 import FormationDisplay from './components/formation/FormationDisplay.vue';
 import CharacterRoster from './components/character/CharacterRoster.vue';
@@ -92,10 +101,10 @@ const {
   addPet,
   removePet,
   clearFormation,
-  moveCharacter,
   swapCharacters,
   isCharacterInFormation,
   isPetInFormation,
+  setFormation,
 } = useFormation();
 
 // Click-to-place functionality
@@ -103,9 +112,6 @@ const {
   selectedItem,
   selectedItemType,
   isSelecting,
-  hoverState,
-  selectCharacter,
-  selectPet,
   clearSelection,
   setCharacterSlotHover,
   setPetSlotHover,
@@ -115,6 +121,16 @@ const {
   handleCharacterCardClick,
   handlePetCardClick,
 } = useClickToPlace();
+const showManager = ref(false);
+
+function openManager() { showManager.value = true; }
+function closeManager() { showManager.value = false; }
+
+function handleLoadFormation(f: any) {
+  setFormation(f);
+  closeManager();
+}
+
 
 // Handlers
 function handleChangeFormationType(type: FormationType) {
@@ -158,8 +174,23 @@ function handleReset() {
 }
 
 function handleSave() {
-  // TODO: Implement save to named formations
-  alert('Formation auto-saved! Named saves coming soon.');
+  const defaultName = 'My Formation';
+  const name = window.prompt('Save formation as:', defaultName);
+  if (!name) return;
+  try {
+    // Defer to storage utils via dynamic import to avoid circulars
+    import('./utils/storageUtils').then(({ saveFormationWithName }) => {
+      saveFormationWithName({
+        formationType: formationType.value,
+        characterSlots: characterSlots.value,
+        petSlot: petSlot.value,
+      } as any, name.trim());
+      alert('Saved formation: ' + name.trim());
+    });
+  } catch (e) {
+    console.error(e);
+    alert('Failed to save formation');
+  }
 }
 
 function handleShare() {
@@ -217,13 +248,14 @@ function handlePetDrop(dropData: any) {
 }
 
 // Click-to-place handlers
-function handleCharacterSlotClick(position: CharacterPosition) {
-  const result = ctpHandleCharacterSlotClick(position);
+function handleCharacterSlotClick(position: number) {
+  const pos = position as CharacterPosition;
+  const result = ctpHandleCharacterSlotClick(pos);
   
   if (result.action === 'place' && result.item) {
     const character = result.item as Character;
     if (!isCharacterInFormation(character.id)) {
-      addCharacter(character, position);
+      addCharacter(character, pos);
       clearSelection();
     }
   }
@@ -241,8 +273,8 @@ function handlePetSlotClick() {
   }
 }
 
-function handleCharacterSlotMouseEnter(position: CharacterPosition) {
-  setCharacterSlotHover(position);
+function handleCharacterSlotMouseEnter(position: number) {
+  setCharacterSlotHover(position as CharacterPosition);
 }
 
 function handleCharacterSlotMouseLeave() {
@@ -264,6 +296,12 @@ onMounted(() => {
     isLoading.value = false;
   }, 500);
 });
+
+// Bridge function to align types for template usage
+function uiIsValidPlacement(position: number | 'pet') {
+  if (position === 'pet') return isValidPlacement('pet');
+  return isValidPlacement(position as CharacterPosition);
+}
 </script>
 
 <style scoped>
