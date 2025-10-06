@@ -24,8 +24,20 @@
             :formation-type="formationType"
             :character-slots="characterSlots"
             :pet-slot="petSlot"
+            :is-selecting="isSelecting"
+            :is-valid-placement="isValidPlacement"
             @remove-character="handleRemoveCharacter"
             @remove-pet="handleRemovePet"
+            @character-drag-start="handleCharacterDragStart"
+            @character-drop="handleCharacterDrop"
+            @pet-drag-start="handlePetDragStart"
+            @pet-drop="handlePetDrop"
+            @character-slot-click="handleCharacterSlotClick"
+            @character-slot-mouse-enter="handleCharacterSlotMouseEnter"
+            @character-slot-mouse-leave="handleCharacterSlotMouseLeave"
+            @pet-slot-click="handlePetSlotClick"
+            @pet-slot-mouse-enter="handlePetSlotMouseEnter"
+            @pet-slot-mouse-leave="handlePetSlotMouseLeave"
           />
         </section>
 
@@ -36,8 +48,12 @@
             :pets="allPets"
             :character-slots="characterSlots"
             :pet-slot="petSlot"
+            :selected-item="selectedItem"
+            :selected-item-type="selectedItemType"
             @select-character="handleSelectCharacter"
             @select-pet="handleSelectPet"
+            @character-drag-start="handleCharacterDragStart"
+            @pet-drag-start="handlePetDragStart"
           />
         </section>
       </div>
@@ -58,6 +74,7 @@ import FormationTypeSelector from './components/formation/FormationTypeSelector.
 import FormationDisplay from './components/formation/FormationDisplay.vue';
 import CharacterRoster from './components/character/CharacterRoster.vue';
 import { useFormation } from './composables/useFormation';
+import { useClickToPlace } from './composables/useClickToPlace';
 import { characters as allCharacters } from './data/characters';
 import { pets as allPets } from './data/pets';
 import type { Character, Pet, FormationType, CharacterPosition } from './types';
@@ -75,7 +92,29 @@ const {
   addPet,
   removePet,
   clearFormation,
+  moveCharacter,
+  swapCharacters,
+  isCharacterInFormation,
+  isPetInFormation,
 } = useFormation();
+
+// Click-to-place functionality
+const {
+  selectedItem,
+  selectedItemType,
+  isSelecting,
+  hoverState,
+  selectCharacter,
+  selectPet,
+  clearSelection,
+  setCharacterSlotHover,
+  setPetSlotHover,
+  isValidPlacement,
+  handleCharacterSlotClick: ctpHandleCharacterSlotClick,
+  handlePetSlotClick: ctpHandlePetSlotClick,
+  handleCharacterCardClick,
+  handlePetCardClick,
+} = useClickToPlace();
 
 // Handlers
 function handleChangeFormationType(type: FormationType) {
@@ -83,18 +122,25 @@ function handleChangeFormationType(type: FormationType) {
 }
 
 function handleSelectCharacter(character: Character) {
-  // Find first empty slot
-  const emptySlot = characterSlots.value.find(slot => !slot.character);
-  if (emptySlot) {
-    addCharacter(character, emptySlot.position);
-  } else {
-    // TODO: Show notification that all slots are full
-    console.log('All character slots are full');
+  const result = handleCharacterCardClick(character);
+  
+  if (result.action === 'select') {
+    // Character is now selected, user can click on a slot to place it
+    console.log('Character selected for placement:', character.name);
+  } else if (result.action === 'cancel') {
+    console.log('Character selection cancelled');
   }
 }
 
 function handleSelectPet(pet: Pet) {
-  addPet(pet);
+  const result = handlePetCardClick(pet);
+  
+  if (result.action === 'select') {
+    // Pet is now selected, user can click on pet slot to place it
+    console.log('Pet selected for placement:', pet.name);
+  } else if (result.action === 'cancel') {
+    console.log('Pet selection cancelled');
+  }
 }
 
 function handleRemoveCharacter(position: number) {
@@ -119,6 +165,96 @@ function handleSave() {
 function handleShare() {
   // TODO: Implement share functionality
   alert('Share functionality coming soon!');
+}
+
+// Drag and Drop Handlers
+function handleCharacterDragStart(character: Character, sourcePosition?: number) {
+  // This is handled by the drag events, but we can add visual feedback here if needed
+  console.log('Character drag started:', character.name, 'from position:', sourcePosition);
+}
+
+function handlePetDragStart(pet: Pet) {
+  // This is handled by the drag events, but we can add visual feedback here if needed
+  console.log('Pet drag started:', pet.name);
+}
+
+function handleCharacterDrop(dropData: any) {
+  const { item: character, type, source, target } = dropData;
+  
+  if (type !== 'character') return;
+  
+  // Parse target position
+  const targetMatch = target.match(/slot-(\d+)/);
+  if (!targetMatch) return;
+  
+  const targetPosition = parseInt(targetMatch[1]) as CharacterPosition;
+  
+  // Handle different drop scenarios
+  if (source === 'roster') {
+    // Dropping from roster to empty slot
+    if (!isCharacterInFormation(character.id)) {
+      addCharacter(character, targetPosition);
+    }
+  } else if (source.startsWith('slot-')) {
+    // Dropping from one slot to another (reordering)
+    const sourceMatch = source.match(/slot-(\d+)/);
+    if (sourceMatch) {
+      const sourcePosition = parseInt(sourceMatch[1]) as CharacterPosition;
+      swapCharacters(sourcePosition, targetPosition);
+    }
+  }
+}
+
+function handlePetDrop(dropData: any) {
+  const { item: pet, type, source } = dropData;
+  
+  if (type !== 'pet') return;
+  
+  // Handle pet drop
+  if (source === 'roster' && !isPetInFormation(pet.id)) {
+    addPet(pet);
+  }
+}
+
+// Click-to-place handlers
+function handleCharacterSlotClick(position: CharacterPosition) {
+  const result = ctpHandleCharacterSlotClick(position);
+  
+  if (result.action === 'place' && result.item) {
+    const character = result.item as Character;
+    if (!isCharacterInFormation(character.id)) {
+      addCharacter(character, position);
+      clearSelection();
+    }
+  }
+}
+
+function handlePetSlotClick() {
+  const result = ctpHandlePetSlotClick();
+  
+  if (result.action === 'place' && result.item) {
+    const pet = result.item as Pet;
+    if (!isPetInFormation(pet.id)) {
+      addPet(pet);
+      clearSelection();
+    }
+  }
+}
+
+function handleCharacterSlotMouseEnter(position: CharacterPosition) {
+  setCharacterSlotHover(position);
+}
+
+function handleCharacterSlotMouseLeave() {
+  setCharacterSlotHover(null);
+}
+
+function handlePetSlotMouseEnter() {
+  setPetSlotHover(true);
+}
+
+function handlePetSlotMouseLeave() {
+  setPetSlotHover(false);
 }
 
 // Initialize

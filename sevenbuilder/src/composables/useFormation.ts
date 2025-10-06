@@ -112,6 +112,90 @@ export function useFormation() {
     autoSave();
   }
 
+  /**
+   * Move character from one position to another (for drag-and-drop reordering)
+   */
+  function moveCharacter(fromPosition: CharacterPosition, toPosition: CharacterPosition) {
+    const fromSlot = formation.value.characterSlots.find((s) => s.position === fromPosition);
+    const toSlot = formation.value.characterSlots.find((s) => s.position === toPosition);
+    
+    if (fromSlot && toSlot) {
+      const character = fromSlot.character;
+      fromSlot.character = toSlot.character;
+      toSlot.character = character;
+      autoSave();
+    }
+  }
+
+  /**
+   * Swap character with another character or empty slot
+   */
+  function swapCharacters(position1: CharacterPosition, position2: CharacterPosition) {
+    const slot1 = formation.value.characterSlots.find((s) => s.position === position1);
+    const slot2 = formation.value.characterSlots.find((s) => s.position === position2);
+    
+    if (slot1 && slot2) {
+      const temp = slot1.character;
+      slot1.character = slot2.character;
+      slot2.character = temp;
+      autoSave();
+    }
+  }
+
+  /**
+   * Check if character is already in formation
+   */
+  function isCharacterInFormation(characterId: string): boolean {
+    return formation.value.characterSlots.some(slot => slot.character?.id === characterId);
+  }
+
+  /**
+   * Check if pet is already in formation
+   */
+  function isPetInFormation(petId: string): boolean {
+    return formation.value.petSlot.pet?.id === petId;
+  }
+
+  /**
+   * Get character at position
+   */
+  function getCharacterAtPosition(position: CharacterPosition): Character | null {
+    const slot = formation.value.characterSlots.find((s) => s.position === position);
+    return slot?.character || null;
+  }
+
+  /**
+   * Get formation validation errors
+   */
+  function getValidationErrors(): string[] {
+    const errors: string[] = [];
+    
+    // Check for duplicate characters
+    const characterIds = formation.value.characterSlots
+      .filter(slot => slot.character)
+      .map(slot => slot.character!.id);
+    
+    const uniqueIds = new Set(characterIds);
+    if (characterIds.length !== uniqueIds.size) {
+      errors.push('Duplicate characters are not allowed');
+    }
+    
+    // Check character count
+    const characterCount = formation.value.characterSlots.filter(slot => slot.character).length;
+    if (characterCount > 5) {
+      errors.push('Maximum 5 characters allowed');
+    }
+    
+    return errors;
+  }
+
+  /**
+   * Check if formation is valid
+   */
+  function isValid(): boolean {
+    return getValidationErrors().length === 0;
+  }
+
   return {
     formation,
     formationType,
@@ -125,6 +209,13 @@ export function useFormation() {
     clearFormation,
     validate,
     setFormation,
+    moveCharacter,
+    swapCharacters,
+    isCharacterInFormation,
+    isPetInFormation,
+    getCharacterAtPosition,
+    getValidationErrors,
+    isValid,
   };
 }
 

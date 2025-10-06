@@ -3,8 +3,22 @@
     :class="[
       'character-slot',
       `position-${positionType}`,
-      { 'is-empty': !character, 'is-filled': character }
+      { 
+        'is-empty': !character, 
+        'is-filled': character,
+        'is-drag-over': isDragOver,
+        'is-invalid-drop': isInvalidDrop,
+        'is-selectable': isSelecting && isValidTarget,
+        'is-selecting': isSelecting
+      }
     ]"
+    @dragover="handleDragOver"
+    @dragleave="handleDragLeave"
+    @drop="handleDrop"
+    @dragenter="handleDragEnter"
+    @click="handleClick"
+    @mouseenter="handleMouseEnter"
+    @mouseleave="handleMouseLeave"
   >
     <!-- Position Number -->
     <div class="position-number">{{ position }}</div>
@@ -42,6 +56,8 @@
         :alt="character.name"
         class="character-image"
         @error="handleImageError"
+        draggable="true"
+        @dragstart="handleDragStart"
       />
       
       <div class="character-info">
@@ -79,19 +95,30 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Character, CharacterPosition, PositionType } from '../../types';
 
 interface Props {
   position: CharacterPosition;
   positionType: PositionType;
   character: Character | null;
+  isSelecting?: boolean;
+  isValidTarget?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-defineEmits<{
+const emit = defineEmits<{
   remove: [];
+  dragStart: [character: Character, position: CharacterPosition];
+  drop: [data: { item: Character; type: 'character' | 'pet'; source: string; target: string }];
+  click: [position: CharacterPosition];
+  mouseEnter: [position: CharacterPosition];
+  mouseLeave: [];
 }>();
+
+const isDragOver = ref(false);
+const isInvalidDrop = ref(false);
 
 function getStarCount(starRank: string): number {
   return parseInt(starRank.replace('★', ''));
@@ -104,6 +131,99 @@ function getClassIcon(characterClass: string): string {
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = '/placeholder-character.svg';
+}
+
+function handleDragStart(event: DragEvent) {
+  if (!props.character) return;
+  
+  emit('dragStart', props.character, props.position);
+  
+  if (event.dataTransfer) {
+    event.dataTransfer.setData('application/json', JSON.stringify({
+      item: props.character,
+      type: 'character',
+      source: `slot-${props.position}`,
+    }));
+    event.dataTransfer.effectAllowed = 'move';
+  }
+}
+
+function handleDragEnter(event: DragEvent) {
+  event.preventDefault();
+  isDragOver.value = true;
+}
+
+function handleDragOver(event: DragEvent) {
+  event.preventDefault();
+  
+  if (!event.dataTransfer) return;
+  
+  // Check if this is a valid drop target for the current drag
+  const data = event.dataTransfer.getData('application/json');
+  if (data) {
+    try {
+      const dragData = JSON.parse(data);
+      if (dragData.type === 'character') {
+        event.dataTransfer.dropEffect = 'move';
+        isInvalidDrop.value = false;
+      } else {
+        event.dataTransfer.dropEffect = 'none';
+        isInvalidDrop.value = true;
+      }
+    } catch {
+      event.dataTransfer.dropEffect = 'none';
+      isInvalidDrop.value = true;
+    }
+  }
+}
+
+function handleDragLeave(event: DragEvent) {
+  // Only clear if we're leaving the element entirely
+  const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+  const x = event.clientX;
+  const y = event.clientY;
+  
+  if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+    isDragOver.value = false;
+    isInvalidDrop.value = false;
+  }
+}
+
+function handleDrop(event: DragEvent) {
+  event.preventDefault();
+  isDragOver.value = false;
+  isInvalidDrop.value = false;
+  
+  if (!event.dataTransfer) return;
+  
+  const data = event.dataTransfer.getData('application/json');
+  if (data) {
+    try {
+      const dragData = JSON.parse(data);
+      if (dragData.type === 'character') {
+        emit('drop', {
+          item: dragData.item,
+          type: dragData.type,
+          source: dragData.source,
+          target: `slot-${props.position}`,
+        });
+      }
+    } catch {
+      // Invalid data, ignore
+    }
+  }
+}
+
+function handleClick() {
+  emit('click', props.position);
+}
+
+function handleMouseEnter() {
+  emit('mouseEnter', props.position);
+}
+
+function handleMouseLeave() {
+  emit('mouseLeave');
 }
 </script>
 
@@ -122,6 +242,47 @@ function handleImageError(event: Event) {
 .character-slot:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.character-slot.is-drag-over {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.character-slot.is-invalid-drop {
+  border-color: var(--color-error);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Click-to-place states */
+.character-slot.is-selecting {
+  cursor: pointer;
+}
+
+.character-slot.is-selectable {
+  border-color: var(--color-success);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.05);
+  animation: pulse-select 2s ease-in-out infinite;
+}
+
+.character-slot.is-selectable:hover {
+  border-color: var(--color-success);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  background: rgba(34, 197, 94, 0.1);
+  transform: scale(1.02);
+}
+
+@keyframes pulse-select {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.7);
+  }
 }
 
 .position-front {

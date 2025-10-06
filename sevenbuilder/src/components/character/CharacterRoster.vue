@@ -110,7 +110,9 @@
           :key="character.id"
           :character="character"
           :is-in-formation="isCharacterInFormation(character.id)"
+          :is-selected="selectedItemType === 'character' && selectedItem?.id === character.id"
           @select="$emit('selectCharacter', character)"
+          @drag-start="$emit('characterDragStart', character)"
         />
         
         <div v-if="sortedAndFilteredCharacters.length === 0" class="empty-state">
@@ -125,7 +127,9 @@
           :key="pet.id"
           :pet="pet"
           :is-in-formation="isPetInFormation(pet.id)"
+          :is-selected="selectedItemType === 'pet' && selectedItem?.id === pet.id"
           @select="$emit('selectPet', pet)"
+          @drag-start="$emit('petDragStart', pet)"
         />
         
         <div v-if="sortedAndFilteredPets.length === 0" class="empty-state">
@@ -147,6 +151,8 @@ interface Props {
   pets: Pet[];
   characterSlots?: CharacterSlot[];
   petSlot?: PetSlot;
+  selectedItem?: Character | Pet | null;
+  selectedItemType?: 'character' | 'pet' | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -157,6 +163,8 @@ const props = withDefaults(defineProps<Props>(), {
 defineEmits<{
   selectCharacter: [character: Character];
   selectPet: [pet: Pet];
+  characterDragStart: [character: Character];
+  petDragStart: [pet: Pet];
 }>();
 
 // State

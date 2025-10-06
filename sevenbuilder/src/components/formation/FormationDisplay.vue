@@ -17,7 +17,14 @@
           :position="slot.position"
           :position-type="slot.positionType"
           :character="slot.character"
+          :is-selecting="isSelecting"
+          :is-valid-target="isValidPlacement(slot.position)"
           @remove="$emit('removeCharacter', slot.position)"
+          @drag-start="$emit('characterDragStart', $event, slot.position)"
+          @drop="$emit('characterDrop', $event)"
+          @click="$emit('characterSlotClick', slot.position)"
+          @mouse-enter="$emit('characterSlotMouseEnter', slot.position)"
+          @mouse-leave="$emit('characterSlotMouseLeave')"
         />
       </div>
 
@@ -25,7 +32,14 @@
       <div class="pet-slot-container">
         <PetSlot
           :pet="petSlot.pet"
+          :is-selecting="isSelecting"
+          :is-valid-target="isValidPlacement('pet')"
           @remove="$emit('removePet')"
+          @drag-start="$emit('petDragStart', $event)"
+          @drop="$emit('petDrop', $event)"
+          @click="$emit('petSlotClick')"
+          @mouse-enter="$emit('petSlotMouseEnter')"
+          @mouse-leave="$emit('petSlotMouseLeave')"
         />
       </div>
     </div>
@@ -42,6 +56,8 @@ interface Props {
   formationType: FormationType;
   characterSlots: CharacterSlotType[];
   petSlot: PetSlotType;
+  isSelecting?: boolean;
+  isValidPlacement?: (position: number | 'pet') => boolean;
 }
 
 const props = defineProps<Props>();
@@ -49,6 +65,16 @@ const props = defineProps<Props>();
 defineEmits<{
   removeCharacter: [position: number];
   removePet: [];
+  characterDragStart: [character: any, position: number];
+  characterDrop: [data: any];
+  petDragStart: [pet: any];
+  petDrop: [data: any];
+  characterSlotClick: [position: number];
+  characterSlotMouseEnter: [position: number];
+  characterSlotMouseLeave: [];
+  petSlotClick: [];
+  petSlotMouseEnter: [];
+  petSlotMouseLeave: [];
 }>();
 
 const formationTypeName = computed(() => {

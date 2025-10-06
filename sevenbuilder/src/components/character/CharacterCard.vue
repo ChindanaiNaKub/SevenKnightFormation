@@ -1,8 +1,15 @@
 <template>
   <div 
     class="character-card" 
-    :class="{ 'in-formation': isInFormation }"
+    :class="{ 
+      'in-formation': isInFormation,
+      'is-dragging': isDragging,
+      'is-selected': isSelected
+    }"
     @click="$emit('select')"
+    draggable="true"
+    @dragstart="handleDragStart"
+    @dragend="handleDragEnd"
   >
     <div class="card-image">
       <img
@@ -41,20 +48,26 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Character } from '../../types';
 
 interface Props {
   character: Character;
   isInFormation?: boolean;
+  isSelected?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isInFormation: false,
+  isSelected: false,
 });
 
-defineEmits<{
+const emit = defineEmits<{
   select: [];
+  dragStart: [character: Character];
 }>();
+
+const isDragging = ref(false);
 
 function getStarCount(starRank: string): number {
   return parseInt(starRank.replace('★', ''));
@@ -71,6 +84,67 @@ function getRarityClass(rarity: string): string {
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = '/placeholder-character.svg';
+}
+
+function handleDragStart(event: DragEvent) {
+  if (props.isInFormation) {
+    event.preventDefault();
+    return;
+  }
+  
+  isDragging.value = true;
+  emit('dragStart', props.character);
+  
+  if (event.dataTransfer) {
+    event.dataTransfer.setData('application/json', JSON.stringify({
+      item: props.character,
+      type: 'character',
+      source: 'roster',
+    }));
+    event.dataTransfer.effectAllowed = 'move';
+    
+    // Create custom drag image
+    const dragImage = createDragImage();
+    event.dataTransfer.setDragImage(dragImage, 50, 50);
+  }
+}
+
+function handleDragEnd() {
+  isDragging.value = false;
+}
+
+function createDragImage(): HTMLElement {
+  const dragImage = document.createElement('div');
+  dragImage.style.cssText = `
+    position: absolute;
+    top: -1000px;
+    width: 100px;
+    height: 120px;
+    background: var(--color-bg-secondary, #1a1a2e);
+    border: 2px solid var(--color-primary, #7c3aed);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+  `;
+  
+  dragImage.innerHTML = `
+    <img src="${props.character.image}" alt="${props.character.name}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px;">
+    <div style="text-align: center; font-size: 12px; color: white; margin-top: 4px; font-weight: 600;">
+      ${props.character.name}
+    </div>
+  `;
+  
+  document.body.appendChild(dragImage);
+  
+  // Clean up after a short delay
+  setTimeout(() => {
+    if (dragImage.parentNode) {
+      dragImage.parentNode.removeChild(dragImage);
+    }
+  }, 100);
+  
+  return dragImage;
 }
 </script>
 
@@ -122,6 +196,38 @@ function handleImageError(event: Event) {
 .character-card.in-formation:hover {
   opacity: 0.8;
   border-color: var(--color-success);
+}
+
+/* Dragging State */
+.character-card.is-dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+  cursor: grabbing;
+}
+
+.character-card.in-formation {
+  cursor: not-allowed;
+}
+
+.character-card.in-formation[draggable="true"] {
+  cursor: not-allowed;
+}
+
+/* Selected state for click-to-place */
+.character-card.is-selected {
+  border-color: var(--color-success);
+  background: rgba(34, 197, 94, 0.1);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  animation: pulse-selected 2s ease-in-out infinite;
+}
+
+@keyframes pulse-selected {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.7);
+  }
 }
 
 .card-image {
