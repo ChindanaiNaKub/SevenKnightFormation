@@ -1,65 +1,118 @@
 <template>
-  <div class="formation-type-selector">
-    <h2 class="selector-title">Formation Type</h2>
-    <div class="formation-types-grid">
-      <button
-        v-for="config in formationTypes"
-        :key="config.type"
-        class="formation-type-card"
-        :class="{ 'is-selected': selectedType === config.type }"
-        @click="$emit('select', config.type)"
-      >
-        <!-- Formation Icon/Visual -->
-        <div class="formation-icon">
-          <div class="icon-visual" :data-type="config.type">
-            <div class="position-indicators">
-              <!-- Front positions (blue shields) -->
-              <div class="front-row">
+  <div class="formation-type-selector" :class="{ collapsed: isCollapsed }">
+    <!-- Collapsed Header (shown when collapsed) -->
+    <div v-if="isCollapsed" class="collapsed-header" @click="isCollapsed = false">
+      <div class="collapsed-content">
+        <div class="collapsed-icon">
+          <div class="icon-visual-small">
+            <div class="position-indicators-small">
+              <div class="front-row-small">
                 <div
-                  v-for="pos in config.frontPositions"
+                  v-for="pos in selectedConfig.frontPositions"
                   :key="`front-${pos}`"
-                  class="position-dot front"
+                  class="position-dot-small front"
                 ></div>
               </div>
-              <!-- Back positions (red cones) -->
-              <div class="back-row">
+              <div class="back-row-small">
                 <div
-                  v-for="pos in config.backPositions"
+                  v-for="pos in selectedConfig.backPositions"
                   :key="`back-${pos}`"
-                  class="position-dot back"
+                  class="position-dot-small back"
                 ></div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Formation Info -->
-        <div class="formation-info">
-          <h3 class="formation-name">{{ config.name }}</h3>
-          <div class="formation-level">Lv.{{ config.level }}</div>
-          <div class="formation-composition">
-            <span class="front-count">
-              <span class="shield-icon">🛡</span>
-              {{ config.frontPositions.length }} Front
-            </span>
-            <span class="back-count">
-              <span class="cone-icon">🔺</span>
-              {{ config.backPositions.length }} Back
-            </span>
-          </div>
+        <div class="collapsed-info">
+          <span class="collapsed-label">Formation:</span>
+          <span class="collapsed-name">{{ selectedConfig.name }}</span>
+          <span class="collapsed-stats">
+            🛡 {{ selectedConfig.frontPositions.length }} / 🔺 {{ selectedConfig.backPositions.length }}
+          </span>
         </div>
-
-        <!-- Selected Indicator -->
-        <div v-if="selectedType === config.type" class="selected-indicator">
-          <span class="checkmark">✓</span>
-        </div>
+      </div>
+      <button class="expand-btn" title="Change Formation">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
       </button>
     </div>
+
+    <!-- Full Selector (shown when expanded) -->
+    <template v-else>
+      <div class="selector-header">
+        <h2 class="selector-title">Formation Type</h2>
+        <button 
+          v-if="hasSelection" 
+          class="collapse-btn" 
+          @click="isCollapsed = true"
+          title="Collapse"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 15l7-7 7 7"/>
+          </svg>
+        </button>
+      </div>
+      <div class="formation-types-grid">
+        <button
+          v-for="config in formationTypes"
+          :key="config.type"
+          class="formation-type-card"
+          :class="{ 'is-selected': selectedType === config.type }"
+          @click="handleSelect(config.type)"
+        >
+          <!-- Formation Icon/Visual -->
+          <div class="formation-icon">
+            <div class="icon-visual" :data-type="config.type">
+              <div class="position-indicators">
+                <!-- Front positions (blue shields) -->
+                <div class="front-row">
+                  <div
+                    v-for="pos in config.frontPositions"
+                    :key="`front-${pos}`"
+                    class="position-dot front"
+                  ></div>
+                </div>
+                <!-- Back positions (red cones) -->
+                <div class="back-row">
+                  <div
+                    v-for="pos in config.backPositions"
+                    :key="`back-${pos}`"
+                    class="position-dot back"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formation Info -->
+          <div class="formation-info">
+            <h3 class="formation-name">{{ config.name }}</h3>
+            <div class="formation-level">Lv.{{ config.level }}</div>
+            <div class="formation-composition">
+              <span class="front-count">
+                <span class="shield-icon">🛡</span>
+                {{ config.frontPositions.length }} Front
+              </span>
+              <span class="back-count">
+                <span class="cone-icon">🔺</span>
+                {{ config.backPositions.length }} Back
+              </span>
+            </div>
+          </div>
+
+          <!-- Selected Indicator -->
+          <div v-if="selectedType === config.type" class="selected-indicator">
+            <span class="checkmark">✓</span>
+          </div>
+        </button>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { FormationType } from '../../types';
 import { formationConfigs } from '../../data/formationConfigs';
 
@@ -67,14 +120,42 @@ interface Props {
   selectedType: FormationType;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-defineEmits<{
+const emit = defineEmits<{
   select: [type: FormationType];
 }>();
 
+const isCollapsed = ref(false);
+
 const formationTypes = computed(() => {
   return Object.values(formationConfigs);
+});
+
+const selectedConfig = computed(() => {
+  return formationConfigs[props.selectedType];
+});
+
+const hasSelection = computed(() => {
+  return props.selectedType !== undefined && props.selectedType !== null;
+});
+
+const handleSelect = (type: FormationType) => {
+  emit('select', type);
+  // Auto-collapse after selection
+  setTimeout(() => {
+    isCollapsed.value = true;
+  }, 600); // Wait for the selection animation to complete
+};
+
+// Watch for selection changes to auto-collapse
+watch(() => props.selectedType, (newType) => {
+  if (newType && !isCollapsed.value) {
+    // Auto-collapse when a type is selected (with delay for animation)
+    setTimeout(() => {
+      isCollapsed.value = true;
+    }, 600);
+  }
 });
 </script>
 
@@ -84,15 +165,165 @@ const formationTypes = computed(() => {
   border-radius: var(--radius-xl);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+
+.formation-type-selector.collapsed {
+  padding: 0;
+}
+
+/* Collapsed State */
+.collapsed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: var(--radius-xl);
+}
+
+.collapsed-header:hover {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.collapsed-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.collapsed-icon {
+  flex-shrink: 0;
+}
+
+.icon-visual-small {
+  width: 60px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.position-indicators-small {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px;
+}
+
+.front-row-small,
+.back-row-small {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.position-dot-small {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.position-dot-small.front {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  border: 1px solid #93c5fd;
+}
+
+.position-dot-small.back {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  border: 1px solid #fca5a5;
+}
+
+.collapsed-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.collapsed-label {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.collapsed-name {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.collapsed-stats {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.expand-btn {
+  background: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  color: white;
+}
+
+.expand-btn:hover {
+  background: var(--color-primary-light);
+  transform: scale(1.1);
+}
+
+/* Expanded State Header */
+.selector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .selector-title {
   font-size: var(--font-2xl);
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-lg);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--color-border);
+  margin: 0;
+}
+
+.collapse-btn {
+  background: var(--color-bg-tertiary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text-secondary);
+}
+
+.collapse-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
 }
 
 .formation-types-grid {
@@ -292,6 +523,10 @@ const formationTypes = computed(() => {
     padding: var(--spacing-md);
   }
 
+  .formation-type-selector.collapsed {
+    padding: 0;
+  }
+
   .selector-title {
     font-size: var(--font-xl);
   }
@@ -302,6 +537,18 @@ const formationTypes = computed(() => {
 
   .formation-type-card {
     padding: var(--spacing-md);
+  }
+
+  .collapsed-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .collapsed-name {
+    font-size: var(--font-md);
+  }
+
+  .collapsed-info {
+    gap: var(--spacing-xs);
   }
 }
 
@@ -318,6 +565,44 @@ const formationTypes = computed(() => {
   .position-dot {
     width: 14px;
     height: 14px;
+  }
+
+  .collapsed-header {
+    padding: var(--spacing-sm);
+  }
+
+  .collapsed-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .collapsed-label {
+    font-size: var(--font-xs);
+  }
+
+  .collapsed-name {
+    font-size: var(--font-sm);
+  }
+
+  .collapsed-stats {
+    font-size: var(--font-xs);
+    padding: 2px 8px;
+  }
+
+  .icon-visual-small {
+    width: 50px;
+    height: 35px;
+  }
+
+  .position-dot-small {
+    width: 6px;
+    height: 6px;
+  }
+
+  .expand-btn {
+    width: 32px;
+    height: 32px;
   }
 }
 </style>

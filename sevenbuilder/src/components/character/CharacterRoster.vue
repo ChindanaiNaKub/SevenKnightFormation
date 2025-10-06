@@ -293,21 +293,20 @@ function clearPetFilters() {
 
 <style scoped>
 .character-roster {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  max-height: 550px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .roster-header {
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md);
   border-bottom: 2px solid var(--color-border);
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .roster-title {
@@ -357,7 +356,7 @@ function clearPetFilters() {
   font-size: var(--font-sm);
   outline: none;
   transition: all var(--transition-normal);
-  min-width: 200px;
+  width: 180px;
 }
 
 .search-input:focus {
@@ -371,9 +370,10 @@ function clearPetFilters() {
 
 /* Controls Section */
 .roster-controls {
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-tertiary);
+  flex-shrink: 0;
 }
 
 .controls-row {
@@ -441,13 +441,16 @@ function clearPetFilters() {
 .roster-content {
   flex: 1;
   overflow-y: auto;
-  padding: var(--spacing-md) var(--spacing-lg);
+  overflow-x: hidden;
+  padding: var(--spacing-md);
+  min-height: 0;
 }
 
 .roster-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-md);
 }
 
 .empty-state {
@@ -458,18 +461,22 @@ function clearPetFilters() {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .roster-header {
-    padding: var(--spacing-md);
+@media (min-width: 1025px) {
+  /* Sidebar layout - keep single column */
+  .roster-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Full width on mobile/tablet - can use multiple columns */
+  .roster-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 
   .roster-title {
     width: 100%;
     order: -1;
-  }
-
-  .roster-tabs {
-    flex: 1;
   }
 
   .roster-search {
@@ -481,17 +488,15 @@ function clearPetFilters() {
     width: 100%;
     min-width: 0;
   }
+}
 
-  .roster-controls {
-    padding: var(--spacing-sm) var(--spacing-md);
+@media (max-width: 768px) {
+  .roster-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 
   .controls-row {
     gap: var(--spacing-sm);
-  }
-
-  .roster-grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -511,6 +516,10 @@ function clearPetFilters() {
 
   .control-select {
     min-width: 80px;
+  }
+
+  .roster-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

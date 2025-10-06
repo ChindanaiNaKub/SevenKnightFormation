@@ -10,6 +10,10 @@ A web-based formation builder for Seven Knights Rebirth game that allows players
 - **Position Indicators**: Visual indicators for front (blue shields) and back (red cones) positions
 - **Save & Load**: Save multiple formations locally
 - **Share**: Share your formations via URL with friends
+- **Side-by-Side Layout**: Formation and roster visible simultaneously (no scrolling!)
+- **Collapsible Sidebar**: Toggle roster visibility for more space
+- **Collapsible Formation Selector**: Auto-collapses after selection to maximize focus on building
+- **Drag & Drop OR Click-to-Place**: Two ways to build your formation
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
 
 ## Tech Stack
@@ -86,6 +90,25 @@ This is a personal project for the Seven Knights Rebirth community. Contribution
 ## License
 
 MIT
+
+## Recent Updates
+
+### Phase 8: Collapsible Formation Selector
+- **Auto-Collapse**: Formation selector automatically minimizes after selection
+- **Space Efficiency**: Saves ~85% vertical space when collapsed
+- **Quick Access**: One-click expansion to change formations
+- **Improved Focus**: Formation building area takes center stage
+- **Enhanced UX**: Smooth animations and polished transitions
+
+See [PHASE8_COLLAPSIBLE_FORMATION_SELECTOR.md](PHASE8_COLLAPSIBLE_FORMATION_SELECTOR.md) for detailed documentation.
+
+### Phase 7: Enhanced Visual Design
+- Beautiful gradient cards with animated selection states
+- Improved color scheme and visual hierarchy
+- Responsive grid layouts for all screen sizes
+- Professional-looking UI with polished animations
+
+See [PHASE7_COMPLETE_GUIDE.md](PHASE7_COMPLETE_GUIDE.md) for complete design documentation.
 
 ## Acknowledgments
 

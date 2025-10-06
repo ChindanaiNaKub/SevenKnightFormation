@@ -12,52 +12,70 @@
     <!-- Main Content -->
     <main class="main-content">
       <div class="content-wrapper">
-        <!-- Formation Type Selector -->
-        <section class="selector-section">
-          <FormationTypeSelector
-            :selected-type="formationType"
-            @select="handleChangeFormationType"
-          />
-        </section>
+        <!-- Left Side: Formation Area -->
+        <div class="formation-area">
+          <!-- Formation Type Selector -->
+          <section class="selector-section">
+            <FormationTypeSelector
+              :selected-type="formationType"
+              @select="handleChangeFormationType"
+            />
+          </section>
 
-        <!-- Formation Display -->
-        <section class="formation-section">
-          <FormationDisplay
-            :formation-type="formationType"
-            :character-slots="characterSlots"
-            :pet-slot="petSlot"
-            :is-selecting="isSelecting"
-            :is-valid-placement="uiIsValidPlacement"
-            @remove-character="handleRemoveCharacter"
-            @remove-pet="handleRemovePet"
-            @character-drag-start="handleCharacterDragStart"
-            @character-drop="handleCharacterDrop"
-            @pet-drag-start="handlePetDragStart"
-            @pet-drop="handlePetDrop"
-            @character-slot-click="handleCharacterSlotClick"
-            @character-slot-mouse-enter="handleCharacterSlotMouseEnter"
-            @character-slot-mouse-leave="handleCharacterSlotMouseLeave"
-            @pet-slot-click="handlePetSlotClick"
-            @pet-slot-mouse-enter="handlePetSlotMouseEnter"
-            @pet-slot-mouse-leave="handlePetSlotMouseLeave"
-          />
-        </section>
+          <!-- Formation Display -->
+          <section class="formation-section">
+            <FormationDisplay
+              :formation-type="formationType"
+              :character-slots="characterSlots"
+              :pet-slot="petSlot"
+              :is-selecting="isSelecting"
+              :is-valid-placement="uiIsValidPlacement"
+              @remove-character="handleRemoveCharacter"
+              @remove-pet="handleRemovePet"
+              @character-drag-start="handleCharacterDragStart"
+              @character-drop="handleCharacterDrop"
+              @pet-drag-start="handlePetDragStart"
+              @pet-drop="handlePetDrop"
+              @character-slot-click="handleCharacterSlotClick"
+              @character-slot-mouse-enter="handleCharacterSlotMouseEnter"
+              @character-slot-mouse-leave="handleCharacterSlotMouseLeave"
+              @pet-slot-click="handlePetSlotClick"
+              @pet-slot-mouse-enter="handlePetSlotMouseEnter"
+              @pet-slot-mouse-leave="handlePetSlotMouseLeave"
+            />
+          </section>
+        </div>
 
-        <!-- Character Roster -->
-        <section class="roster-section">
-          <CharacterRoster
-            :characters="allCharacters"
-            :pets="allPets"
-            :character-slots="characterSlots"
-            :pet-slot="petSlot"
-            :selected-item="selectedItem"
-            :selected-item-type="selectedItemType"
-            @select-character="handleSelectCharacter"
-            @select-pet="handleSelectPet"
-            @character-drag-start="handleCharacterDragStart"
-            @pet-drag-start="handlePetDragStart"
-          />
-        </section>
+        <!-- Right Side: Character Roster -->
+        <aside class="roster-sidebar" :class="{ collapsed: isRosterCollapsed }">
+          <button 
+            class="roster-toggle" 
+            @click="isRosterCollapsed = !isRosterCollapsed"
+            :title="isRosterCollapsed ? 'Show Roster' : 'Hide Roster'"
+          >
+            <svg v-if="isRosterCollapsed" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+            <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+          
+          <div class="roster-content-wrapper">
+            <CharacterRoster
+              :characters="allCharacters"
+              :pets="allPets"
+              :character-slots="characterSlots"
+              :pet-slot="petSlot"
+              :selected-item="selectedItem"
+              :selected-item-type="selectedItemType"
+              @select-character="handleSelectCharacter"
+              @select-pet="handleSelectPet"
+              @character-drag-start="handleCharacterDragStart"
+              @pet-drag-start="handlePetDragStart"
+            />
+          </div>
+        </aside>
       </div>
     </main>
 
@@ -77,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import AppHeader from './components/ui/AppHeader.vue';
 import FormationManager from './components/ui/FormationManager.vue';
 import FormationTypeSelector from './components/formation/FormationTypeSelector.vue';
@@ -91,6 +109,12 @@ import type { Character, Pet, FormationType, CharacterPosition } from './types';
 import { generateShareUrl, copyToClipboard, getFormationFromUrl } from './utils/shareUtils';
 
 const isLoading = ref(true);
+const isRosterCollapsed = ref(localStorage.getItem('rosterCollapsed') === 'true');
+
+// Watch for collapse state changes and save to localStorage
+watch(isRosterCollapsed, (newValue) => {
+  localStorage.setItem('rosterCollapsed', String(newValue));
+});
 
 // Formation state management
 const {
@@ -367,21 +391,83 @@ function uiIsValidPlacement(position: number | 'pet') {
 
 .main-content {
   flex: 1;
-  padding: var(--spacing-lg);
-  overflow-y: auto;
+  display: flex;
+  overflow: hidden;
 }
 
 .content-wrapper {
-  max-width: 1600px;
-  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  gap: var(--spacing-md);
+  overflow: hidden;
+}
+
+.formation-area {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  animation: fadeIn 0.5s ease;
+}
+
+.roster-sidebar {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary);
+  border-left: 2px solid var(--color-border);
+  position: relative;
+  transition: width 0.3s ease, transform 0.3s ease;
+  animation: slideInRight 0.5s ease;
+}
+
+.roster-sidebar.collapsed {
+  width: 40px;
+}
+
+.roster-toggle {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 80px;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.roster-toggle:hover {
+  background: var(--color-bg-tertiary);
+}
+
+.roster-toggle svg {
+  color: var(--color-text-primary);
+}
+
+.roster-content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.roster-sidebar.collapsed .roster-content-wrapper {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .selector-section,
-.formation-section,
-.roster-section {
+.formation-section {
   animation: fadeIn 0.5s ease;
 }
 
@@ -393,6 +479,17 @@ function uiIsValidPlacement(position: number | 'pet') {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -431,19 +528,79 @@ function uiIsValidPlacement(position: number | 'pet') {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .main-content {
-    padding: var(--spacing-md);
+@media (max-width: 1200px) {
+  .roster-sidebar {
+    width: 360px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
   }
 
-  .content-wrapper {
-    gap: var(--spacing-md);
+  .formation-area {
+    padding: var(--spacing-md);
+    overflow-y: visible;
+  }
+
+  .roster-sidebar {
+    width: 100%;
+    max-height: 600px;
+    border-left: none;
+    border-top: 2px solid var(--color-border);
+    animation: slideInUp 0.5s ease;
+  }
+
+  .roster-sidebar.collapsed {
+    max-height: 60px;
+    width: 100%;
+  }
+
+  .roster-toggle {
+    left: 50%;
+    top: -20px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 40px;
+    border: 2px solid var(--color-border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .roster-toggle svg {
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .formation-area {
+    padding: var(--spacing-sm);
+  }
+
+  .roster-sidebar {
+    max-height: 500px;
   }
 }
 
 @media (max-width: 480px) {
-  .main-content {
-    padding: var(--spacing-sm);
+  .formation-area {
+    padding: var(--spacing-xs);
+  }
+
+  .roster-sidebar {
+    max-height: 400px;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 </style>
