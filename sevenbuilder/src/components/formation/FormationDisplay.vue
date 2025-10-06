@@ -9,23 +9,51 @@
     </div>
 
     <div class="formation-grid">
-      <!-- Character Slots -->
-      <div class="character-slots">
-        <CharacterSlot
-          v-for="slot in characterSlots"
-          :key="slot.position"
-          :position="slot.position"
-          :position-type="slot.positionType"
-          :character="slot.character"
-          :is-selecting="isSelecting"
-          :is-valid-target="validPlacement(slot.position)"
-          @remove="$emit('removeCharacter', slot.position)"
-          @drag-start="$emit('characterDragStart', $event, slot.position)"
-          @drop="$emit('characterDrop', $event)"
-          @click="$emit('characterSlotClick', slot.position)"
-          @mouse-enter="$emit('characterSlotMouseEnter', slot.position)"
-          @mouse-leave="$emit('characterSlotMouseLeave')"
-        />
+      <!-- Character Slots - Grouped by position type -->
+      <div class="character-slots" :class="`formation-${formationType}`">
+        <!-- Front Row -->
+        <div v-if="frontSlots.length > 0" class="position-row front-row">
+          <div class="row-label">Front</div>
+          <div class="slots-row">
+            <CharacterSlot
+              v-for="slot in frontSlots"
+              :key="slot.position"
+              :position="slot.position"
+              :position-type="slot.positionType"
+              :character="slot.character"
+              :is-selecting="isSelecting"
+              :is-valid-target="validPlacement(slot.position)"
+              @remove="$emit('removeCharacter', slot.position)"
+              @drag-start="$emit('characterDragStart', $event, slot.position)"
+              @drop="$emit('characterDrop', $event)"
+              @click="$emit('characterSlotClick', slot.position)"
+              @mouse-enter="$emit('characterSlotMouseEnter', slot.position)"
+              @mouse-leave="$emit('characterSlotMouseLeave')"
+            />
+          </div>
+        </div>
+
+        <!-- Back Row -->
+        <div v-if="backSlots.length > 0" class="position-row back-row">
+          <div class="row-label">Back</div>
+          <div class="slots-row">
+            <CharacterSlot
+              v-for="slot in backSlots"
+              :key="slot.position"
+              :position="slot.position"
+              :position-type="slot.positionType"
+              :character="slot.character"
+              :is-selecting="isSelecting"
+              :is-valid-target="validPlacement(slot.position)"
+              @remove="$emit('removeCharacter', slot.position)"
+              @drag-start="$emit('characterDragStart', $event, slot.position)"
+              @drop="$emit('characterDrop', $event)"
+              @click="$emit('characterSlotClick', slot.position)"
+              @mouse-enter="$emit('characterSlotMouseEnter', slot.position)"
+              @mouse-leave="$emit('characterSlotMouseLeave')"
+            />
+          </div>
+        </div>
       </div>
 
       <!-- Pet Slot -->
@@ -85,6 +113,14 @@ const formationTypeName = computed(() => {
     defense: 'Defense Formation',
   };
   return names[props.formationType];
+});
+
+const frontSlots = computed(() => {
+  return props.characterSlots.filter(slot => slot.positionType === 'front');
+});
+
+const backSlots = computed(() => {
+  return props.characterSlots.filter(slot => slot.positionType === 'back');
 });
 
 // Local guard to safely call optional validator from props
@@ -178,10 +214,67 @@ function validPlacement(position: number | 'pet'): boolean {
 }
 
 .character-slots {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-width: 600px;
+  align-self: center;
+}
+
+.position-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.row-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.slots-row {
+  display: flex;
+  justify-content: center;
   gap: var(--spacing-md);
-  max-width: 500px;
+  flex-wrap: wrap;
+}
+
+/* Formation-specific layouts */
+.formation-basic .slots-row,
+.formation-normal .slots-row {
+  gap: var(--spacing-sm);
+}
+
+.formation-attack .front-row .slots-row {
+  gap: var(--spacing-xl);
+}
+
+.formation-attack .back-row .slots-row {
+  gap: var(--spacing-xs);
+}
+
+.formation-defense .front-row .slots-row {
+  gap: var(--spacing-xs);
+}
+
+.formation-defense .back-row .slots-row {
+  gap: var(--spacing-xl);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .slots-row {
+    gap: var(--spacing-sm);
+  }
+
+  .formation-attack .front-row .slots-row,
+  .formation-defense .back-row .slots-row {
+    gap: var(--spacing-lg);
+  }
 }
 
 .pet-slot-container {
@@ -218,20 +311,18 @@ function validPlacement(position: number | 'pet'): boolean {
   }
 
   .character-slots {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .character-slots {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 100%;
-  }
-
   .formation-type {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .slots-row {
+    justify-content: space-around;
   }
 }
 </style>
