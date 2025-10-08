@@ -242,7 +242,7 @@ function validPlacement(position: number | 'pet'): boolean {
   display: flex;
   justify-content: center;
   gap: var(--spacing-md);
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Changed from wrap to nowrap to prevent layout breaking */
 }
 
 /* Formation-specific layouts */

@@ -302,9 +302,44 @@ function handleShare() {
 async function handleExportPng() {
   const section = document.querySelector('.formation-section') as HTMLElement | null;
   if (!section) return;
+  
+  // Store original styles
+  const originalMinWidth = section.style.minWidth;
+  const originalWidth = section.style.width;
+  
+  // Force a minimum width to prevent wrapping during export
+  section.style.minWidth = '1200px';
+  section.style.width = 'max-content';
+  
+  // Wait for layout to update
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
   const { default: html2canvas } = await import('html2canvas');
-  const canvas = await html2canvas(section, { backgroundColor: '#0b0b1a' });
-  const dataUrl = canvas.toDataURL('image/png');
+  
+  // Export at higher resolution for better quality
+  const scale = 3; // 3x resolution for crisp, high-quality export
+  const canvas = await html2canvas(section, { 
+    backgroundColor: '#0b0b1a',
+    scale: scale,
+    useCORS: true, // Allow cross-origin images
+    allowTaint: true, // Allow cross-origin images
+    imageTimeout: 0, // No timeout for image loading
+    logging: false, // Disable logging
+    width: section.scrollWidth,
+    height: section.scrollHeight,
+    windowWidth: document.documentElement.scrollWidth,
+    windowHeight: document.documentElement.scrollHeight,
+    // Additional quality settings
+    removeContainer: false,
+    foreignObjectRendering: false
+  });
+  
+  // Restore original styles
+  section.style.minWidth = originalMinWidth;
+  section.style.width = originalWidth;
+  
+  // Use maximum quality for PNG
+  const dataUrl = canvas.toDataURL('image/png', 1.0);
   const link = document.createElement('a');
   link.href = dataUrl;
   link.download = 'formation.png';
