@@ -1,8 +1,6 @@
 <template>
   <div class="character-roster">
     <div class="roster-header">
-      <h2 class="roster-title">Roster</h2>
-      
       <div class="roster-tabs">
         <button
           :class="['tab', { active: activeTab === 'characters' }]"
@@ -32,7 +30,7 @@
       <!-- Character-specific filters -->
       <div v-if="activeTab === 'characters'" class="controls-row">
         <div class="control-group">
-          <label class="control-label">Sort By:</label>
+          <label class="control-label">Sort by:</label>
           <select v-model="sortBy" class="control-select">
             <option value="name">Name</option>
             <option value="rarity">Rarity</option>
@@ -66,16 +64,14 @@
         </div>
 
         <button @click="clearFilters" class="clear-button" title="Clear filters">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
+          ✕
         </button>
       </div>
 
       <!-- Pet-specific filters -->
       <div v-else class="controls-row">
         <div class="control-group">
-          <label class="control-label">Sort By:</label>
+          <label class="control-label">Sort by:</label>
           <select v-model="petSortBy" class="control-select">
             <option value="name">Name</option>
             <option value="rarity">Rarity</option>
@@ -95,9 +91,7 @@
         </div>
 
         <button @click="clearPetFilters" class="clear-button" title="Clear filters">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"/>
-          </svg>
+          ✕
         </button>
       </div>
     </div>
@@ -300,38 +294,31 @@ function clearPetFilters() {
 }
 
 .roster-header {
-  padding: var(--spacing-md);
-  border-bottom: 2px solid var(--color-border);
+  padding: var(--spacing-md) var(--spacing-md) 0;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--spacing-md);
-  flex-wrap: wrap;
   flex-shrink: 0;
-}
-
-.roster-title {
-  font-size: var(--font-xl);
-  font-weight: 700;
-  color: var(--color-text-primary);
 }
 
 .roster-tabs {
   display: flex;
-  gap: var(--spacing-xs);
-  background: var(--color-bg-tertiary);
-  border-radius: var(--radius-md);
-  padding: 0.25rem;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tab {
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-sm);
-  font-weight: 600;
+  font-weight: 500;
   background: transparent;
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   transition: all var(--transition-fast);
   white-space: nowrap;
+  cursor: pointer;
 }
 
 .tab:hover {
@@ -339,15 +326,18 @@ function clearPetFilters() {
 }
 
 .tab.active {
-  background: var(--color-primary);
-  color: var(--color-text-primary);
+  background: transparent;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
 }
 
 .roster-search {
-  margin-left: auto;
+  width: 100%;
 }
 
 .search-input {
+  width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
   background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border);
@@ -355,13 +345,12 @@ function clearPetFilters() {
   color: var(--color-text-primary);
   font-size: var(--font-sm);
   outline: none;
-  transition: all var(--transition-normal);
-  width: 180px;
+  transition: all var(--transition-fast);
 }
 
 .search-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  background: var(--color-bg-secondary);
 }
 
 .search-input::placeholder {
@@ -372,14 +361,14 @@ function clearPetFilters() {
 .roster-controls {
   padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg-tertiary);
+  background: transparent;
   flex-shrink: 0;
 }
 
 .controls-row {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   flex-wrap: wrap;
 }
 
@@ -391,14 +380,14 @@ function clearPetFilters() {
 
 .control-label {
   font-size: var(--font-xs);
-  font-weight: 600;
-  color: var(--color-text-secondary);
+  font-weight: 400;
+  color: var(--color-text-muted);
   white-space: nowrap;
 }
 
 .control-select {
   padding: 0.375rem var(--spacing-sm);
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-tertiary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text-primary);
@@ -406,50 +395,54 @@ function clearPetFilters() {
   outline: none;
   transition: all var(--transition-fast);
   cursor: pointer;
-  min-width: 100px;
+  min-width: 85px;
 }
 
 .control-select:hover {
-  border-color: var(--color-primary);
+  border-color: var(--color-text-muted);
 }
 
 .control-select:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+  box-shadow: 0 0 0 1px var(--color-primary);
 }
 
 .clear-button {
-  padding: 0.375rem;
-  background: var(--color-bg-secondary);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
+  font-size: var(--font-sm);
+  line-height: 1;
 }
 
 .clear-button:hover {
   background: var(--color-bg-tertiary);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
+  color: var(--color-text-primary);
+  border-color: var(--color-text-muted);
 }
 
 .roster-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: var(--spacing-md);
+  padding: 0.75rem 1rem;
   min-height: 0;
 }
 
 .roster-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   padding-bottom: var(--spacing-md);
 }
 

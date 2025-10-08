@@ -173,40 +173,26 @@ function createDragImage(): HTMLElement {
 <style scoped>
 .character-card {
   display: flex;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm);
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  border-radius: 0.75rem;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all var(--transition-fast);
   position: relative;
-}
-
-.character-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-  pointer-events: none;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
 }
 
 .character-card:hover {
-  border-color: var(--color-primary);
-  background: var(--color-bg-tertiary);
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-}
-
-.character-card:hover::before {
-  opacity: 1;
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(71, 85, 105, 0.8);
 }
 
 .character-card:active {
-  transform: translateX(2px) scale(0.98);
+  transform: scale(0.98);
 }
 
 /* In Formation State */
@@ -254,8 +240,8 @@ function createDragImage(): HTMLElement {
 
 .card-image {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
 }
 
@@ -263,8 +249,9 @@ function createDragImage(): HTMLElement {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: var(--radius-sm);
-  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.3);
   position: relative;
   z-index: 1;
 }
@@ -314,7 +301,7 @@ function createDragImage(): HTMLElement {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.375rem;
   min-width: 0;
 }
 
@@ -322,13 +309,13 @@ function createDragImage(): HTMLElement {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
 }
 
 .character-name {
-  font-size: var(--font-sm);
+  font-size: var(--font-md);
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #f1f5f9;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -343,27 +330,23 @@ function createDragImage(): HTMLElement {
 }
 
 .star {
-  color: var(--color-rarity-5);
+  color: #fbbf24;
   transition: all var(--transition-fast);
 }
 
-/* Legendary SP - Gold/Orange glow */
+/* Legendary SP - Gold/Orange */
 .stars-legendary-sp .star {
   color: #fbbf24;
-  filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.8));
-  animation: pulse-gold 2s ease-in-out infinite;
 }
 
-/* Legendary - Purple glow */
+/* Legendary - Purple */
 .stars-legendary .star {
   color: #a855f7;
-  filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.6));
 }
 
-/* Rare - Blue glow */
+/* Rare - Yellow/Gold */
 .stars-rare .star {
-  color: #3b82f6;
-  filter: drop-shadow(0 0 1px rgba(59, 130, 246, 0.5));
+  color: #fbbf24;
 }
 
 /* Uncommon - Green */
@@ -373,16 +356,7 @@ function createDragImage(): HTMLElement {
 
 /* Common - Gray */
 .stars-common .star {
-  color: #9ca3af;
-}
-
-@keyframes pulse-gold {
-  0%, 100% {
-    filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.8));
-  }
-  50% {
-    filter: drop-shadow(0 0 5px rgba(251, 191, 36, 1));
-  }
+  color: #6b7280;
 }
 
 .card-meta {
@@ -393,42 +367,42 @@ function createDragImage(): HTMLElement {
 }
 
 .level {
-  color: var(--color-text-secondary);
+  color: #94a3b8;
+  font-size: var(--font-xs);
+  font-weight: 400;
 }
 
 .rarity {
-  padding: 0.125rem var(--spacing-xs);
+  padding: 0.125rem 0.5rem;
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.625rem;
+  text-transform: capitalize;
 }
 
 .rarity-common {
-  background: rgba(156, 163, 175, 0.2);
+  background: rgba(156, 163, 175, 0.15);
   color: #9ca3af;
 }
 
 .rarity-uncommon {
-  background: rgba(132, 204, 22, 0.2);
+  background: rgba(132, 204, 22, 0.15);
   color: #84cc16;
 }
 
 .rarity-rare {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
 }
 
 .rarity-legendary {
-  background: rgba(168, 85, 247, 0.2);
+  background: rgba(168, 85, 247, 0.15);
   color: #a855f7;
-  box-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
 }
 
 .rarity-legendary-sp {
-  background: linear-gradient(135deg, rgba(234, 179, 8, 0.3), rgba(249, 115, 22, 0.3));
-  color: #f97316;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
-  animation: pulse-gold 2s ease-in-out infinite;
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
 }
 </style>
 
