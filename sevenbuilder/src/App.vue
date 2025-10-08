@@ -86,6 +86,25 @@
       @load="handleLoadFormation"
     />
 
+    <!-- Character Selection Modal -->
+    <CharacterSelectionModal
+      v-if="showCharacterModal"
+      :characters="allCharacters"
+      :placed-characters="placedCharacters"
+      :target-position="modalTargetPosition"
+      @close="closeCharacterModal"
+      @select="handleModalCharacterSelect"
+    />
+
+    <!-- Pet Selection Modal -->
+    <PetSelectionModal
+      v-if="showPetModal"
+      :pets="allPets"
+      :placed-pet="petSlot.pet"
+      @close="closePetModal"
+      @select="handleModalPetSelect"
+    />
+
     <!-- Loading State -->
     <div v-if="isLoading" class="loading-overlay">
       <div class="loading-spinner"></div>
@@ -95,9 +114,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import AppHeader from './components/ui/AppHeader.vue';
 import FormationManager from './components/ui/FormationManager.vue';
+import CharacterSelectionModal from './components/ui/CharacterSelectionModal.vue';
+import PetSelectionModal from './components/ui/PetSelectionModal.vue';
 import FormationTypeSelector from './components/formation/FormationTypeSelector.vue';
 import FormationDisplay from './components/formation/FormationDisplay.vue';
 import CharacterRoster from './components/character/CharacterRoster.vue';
@@ -155,6 +176,45 @@ function closeManager() { showManager.value = false; }
 function handleLoadFormation(f: any) {
   setFormation(f);
   closeManager();
+}
+
+// Modal state for character/pet selection
+const showCharacterModal = ref(false);
+const showPetModal = ref(false);
+const modalTargetPosition = ref<CharacterPosition>(1);
+
+// Get currently placed characters
+const placedCharacters = computed(() => {
+  return characterSlots.value
+    .map(slot => slot.character)
+    .filter((char): char is Character => char !== null);
+});
+
+function openCharacterModal(position: CharacterPosition) {
+  modalTargetPosition.value = position;
+  showCharacterModal.value = true;
+}
+
+function closeCharacterModal() {
+  showCharacterModal.value = false;
+}
+
+function openPetModal() {
+  showPetModal.value = true;
+}
+
+function closePetModal() {
+  showPetModal.value = false;
+}
+
+function handleModalCharacterSelect(character: Character) {
+  addCharacter(character, modalTargetPosition.value);
+  closeCharacterModal();
+}
+
+function handleModalPetSelect(pet: Pet) {
+  addPet(pet);
+  closePetModal();
 }
 
 
@@ -298,28 +358,46 @@ function handlePetDrop(dropData: any) {
   }
 }
 
-// Click-to-place handlers
+// Click-to-place handlers (with modal support)
 function handleCharacterSlotClick(position: number) {
   const pos = position as CharacterPosition;
-  const result = ctpHandleCharacterSlotClick(pos);
   
-  if (result.action === 'place' && result.item) {
-    const character = result.item as Character;
-    if (!isCharacterInFormation(character.id)) {
-      addCharacter(character, pos);
-      clearSelection();
+  // Check if we're in selection mode (click-to-place from roster)
+  if (isSelecting.value && selectedItemType.value === 'character') {
+    const result = ctpHandleCharacterSlotClick(pos);
+    
+    if (result.action === 'place' && result.item) {
+      const character = result.item as Character;
+      if (!isCharacterInFormation(character.id)) {
+        addCharacter(character, pos);
+        clearSelection();
+      }
+    }
+  } else {
+    // No selection active - check if slot is empty, then open modal
+    const slot = characterSlots.value.find(s => s.position === pos);
+    if (slot && !slot.character) {
+      openCharacterModal(pos);
     }
   }
 }
 
 function handlePetSlotClick() {
-  const result = ctpHandlePetSlotClick();
-  
-  if (result.action === 'place' && result.item) {
-    const pet = result.item as Pet;
-    if (!isPetInFormation(pet.id)) {
-      addPet(pet);
-      clearSelection();
+  // Check if we're in selection mode (click-to-place from roster)
+  if (isSelecting.value && selectedItemType.value === 'pet') {
+    const result = ctpHandlePetSlotClick();
+    
+    if (result.action === 'place' && result.item) {
+      const pet = result.item as Pet;
+      if (!isPetInFormation(pet.id)) {
+        addPet(pet);
+        clearSelection();
+      }
+    }
+  } else {
+    // No selection active - check if slot is empty, then open modal
+    if (!petSlot.value.pet) {
+      openPetModal();
     }
   }
 }
