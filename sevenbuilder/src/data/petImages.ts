@@ -58,7 +58,7 @@ export function getPetImage(name: string): string {
     key => key.replace(/_/g, ' ').toLowerCase() === nameWithSpaces.toLowerCase()
   );
   
-  if (foundKey) {
+  if (foundKey && petImages[foundKey]) {
     return petImages[foundKey];
   }
   

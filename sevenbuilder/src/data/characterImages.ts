@@ -146,7 +146,7 @@ export function getCharacterImage(name: string): string {
     key => key.replace(/_/g, ' ').toLowerCase() === nameWithSpaces.toLowerCase()
   );
   
-  if (foundKey) {
+  if (foundKey && characterImages[foundKey]) {
     return characterImages[foundKey];
   }
   
