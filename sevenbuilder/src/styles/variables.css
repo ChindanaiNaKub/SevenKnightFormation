@@ -1,30 +1,33 @@
 /**
  * Seven Knights Rebirth Theme Variables
- * Dark/Purple aesthetic matching the game
+ * Clean, Modern Design matching Mock
  */
 
 :root {
-  /* Primary Colors */
-  --color-primary: #7c3aed; /* Purple */
-  --color-primary-dark: #5b21b6;
+  /* Primary Colors - More Muted */
+  --color-primary: #8b5cf6; /* Softer Purple */
+  --color-primary-dark: #7c3aed;
   --color-primary-light: #a78bfa;
+  --color-primary-hover: #9333ea;
   
-  /* Secondary Colors */
-  --color-secondary: #ec4899; /* Pink */
-  --color-secondary-dark: #be185d;
-  --color-secondary-light: #f9a8d4;
+  /* Secondary Colors - Subdued */
+  --color-secondary: #64748b; /* Slate Gray */
+  --color-secondary-dark: #475569;
+  --color-secondary-light: #94a3b8;
   
-  /* Background Colors */
-  --color-bg-primary: #0f0f23; /* Dark blue-black */
-  --color-bg-secondary: #1a1a3e;
-  --color-bg-tertiary: #252550;
+  /* Background Colors - Cleaner, Less Blue */
+  --color-bg-primary: #0f1419; /* Deep charcoal */
+  --color-bg-secondary: #1a1f2e;
+  --color-bg-tertiary: #252b3b;
+  --color-bg-elevated: #2d3548;
   
   /* Text Colors */
-  --color-text-primary: #f8fafc;
+  --color-text-primary: #f1f5f9;
   --color-text-secondary: #cbd5e1;
   --color-text-muted: #94a3b8;
+  --color-text-disabled: #64748b;
   
-  /* Rarity Colors */
+  /* Rarity Colors - Slightly Muted */
   --color-rarity-1: #9ca3af; /* 1-star: Gray */
   --color-rarity-2: #84cc16; /* 2-star: Green */
   --color-rarity-3: #3b82f6; /* 3-star: Blue */
@@ -37,23 +40,28 @@
   --color-back: #ef4444; /* Red for back positions */
   
   /* UI Colors */
-  --color-border: #334155;
-  --color-border-light: #475569;
+  --color-border: #2d3548;
+  --color-border-light: #3f4a5f;
+  --color-border-subtle: #252b3b;
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+  --color-info: #3b82f6;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.5);
+  /* Shadows - Softer */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 12px 24px 0 rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 16px rgba(139, 92, 246, 0.3);
+  --shadow-glow-hover: 0 0 24px rgba(139, 92, 246, 0.5);
   
-  /* Border Radius */
-  --radius-sm: 0.25rem;
+  /* Border Radius - More rounded for modern look */
+  --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -61,6 +69,7 @@
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
   
   /* Font Sizes */
   --font-xs: 0.75rem;
@@ -72,8 +81,8 @@
   --font-3xl: 1.875rem;
   
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
-  --transition-slow: 350ms ease;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

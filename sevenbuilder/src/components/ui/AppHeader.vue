@@ -59,21 +59,23 @@ defineEmits<{
 <style scoped>
 .app-header {
   background: var(--color-bg-secondary);
-  border-bottom: 2px solid var(--color-primary);
-  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(8px);
 }
 
 .header-content {
   max-width: 1600px;
   margin: 0 auto;
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 1rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
+  min-height: 72px;
 }
 
 .header-left {
@@ -87,24 +89,22 @@ defineEmits<{
 }
 
 .title-main {
-  font-size: var(--font-2xl);
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.025em;
 }
 
 .title-sub {
   font-size: var(--font-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
   font-weight: 400;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 0.75rem;
 }
 
 /* Responsive */

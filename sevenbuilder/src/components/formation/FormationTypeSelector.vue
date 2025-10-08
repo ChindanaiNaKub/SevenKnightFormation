@@ -162,9 +162,10 @@ watch(() => props.selectedType, (newType) => {
 <style scoped>
 .formation-type-selector {
   background: var(--color-bg-secondary);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
 
@@ -184,7 +185,7 @@ watch(() => props.selectedType, (newType) => {
 }
 
 .collapsed-header:hover {
-  background: rgba(139, 92, 246, 0.1);
+  background: var(--color-bg-tertiary);
 }
 
 .collapsed-content {
@@ -201,13 +202,13 @@ watch(() => props.selectedType, (newType) => {
 .icon-visual-small {
   width: 60px;
   height: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: var(--radius-sm);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-primary);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .position-indicators-small {
@@ -263,9 +264,10 @@ watch(() => props.selectedType, (newType) => {
 .collapsed-stats {
   font-size: var(--font-sm);
   color: var(--color-text-secondary);
-  background: rgba(139, 92, 246, 0.1);
+  background: var(--color-bg-tertiary);
   padding: 4px 10px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .expand-btn {
@@ -295,20 +297,21 @@ watch(() => props.selectedType, (newType) => {
   justify-content: space-between;
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .selector-title {
-  font-size: var(--font-2xl);
-  font-weight: 700;
+  font-size: var(--font-xl);
+  font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .collapse-btn {
-  background: var(--color-bg-tertiary);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   width: 36px;
   height: 36px;
   display: flex;
@@ -320,10 +323,9 @@ watch(() => props.selectedType, (newType) => {
 }
 
 .collapse-btn:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
-  transform: translateY(-2px);
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-primary);
 }
 
 .formation-types-grid {
@@ -335,7 +337,7 @@ watch(() => props.selectedType, (newType) => {
 .formation-type-card {
   position: relative;
   background: var(--color-bg-tertiary);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   cursor: pointer;
@@ -349,14 +351,15 @@ watch(() => props.selectedType, (newType) => {
 
 .formation-type-card:hover {
   border-color: var(--color-primary);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+  background: var(--color-bg-elevated);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 .formation-type-card.is-selected {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  background: var(--color-primary);
   border-color: var(--color-primary-light);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  box-shadow: var(--shadow-glow-hover);
 }
 
 /* Formation Icon Visual */

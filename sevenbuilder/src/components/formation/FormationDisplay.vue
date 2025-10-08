@@ -131,11 +131,11 @@ function validPlacement(position: number | 'pet'): boolean {
 
 <style scoped>
 .formation-display {
-  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, rgba(124, 58, 237, 0.08) 100%);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
   position: relative;
   overflow: hidden;
 }
@@ -147,7 +147,7 @@ function validPlacement(position: number | 'pet'): boolean {
   right: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
   pointer-events: none;
   animation: pulse 8s ease-in-out infinite;
 }
@@ -169,15 +169,16 @@ function validPlacement(position: number | 'pet'): boolean {
   justify-content: space-between;
   margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   position: relative;
   z-index: 1;
 }
 
 .formation-title {
-  font-size: var(--font-2xl);
-  font-weight: 700;
+  font-size: var(--font-xl);
+  font-weight: 600;
   color: var(--color-text-primary);
+  letter-spacing: -0.025em;
 }
 
 .formation-type {
@@ -185,8 +186,9 @@ function validPlacement(position: number | 'pet'): boolean {
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--color-bg-tertiary);
+  background: var(--color-bg-elevated);
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .type-label {
@@ -196,7 +198,7 @@ function validPlacement(position: number | 'pet'): boolean {
 
 .type-value {
   font-size: var(--font-md);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-primary-light);
 }
 
@@ -207,10 +209,10 @@ function validPlacement(position: number | 'pet'): boolean {
   gap: var(--spacing-xl);
   position: relative;
   z-index: 1;
-  padding: var(--spacing-md);
-  background: rgba(15, 15, 35, 0.3);
+  padding: var(--spacing-lg);
+  background: var(--color-bg-tertiary);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .character-slots {

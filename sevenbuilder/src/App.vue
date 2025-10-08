@@ -484,8 +484,8 @@ function uiIsValidPlacement(position: number | 'pet') {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
   overflow-y: auto;
   animation: fadeIn 0.5s ease;
 }
@@ -495,7 +495,7 @@ function uiIsValidPlacement(position: number | 'pet') {
   display: flex;
   flex-direction: column;
   background: var(--color-bg-secondary);
-  border-left: 2px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
   position: relative;
   transition: width 0.3s ease, transform 0.3s ease;
   animation: slideInRight 0.5s ease;
@@ -512,20 +512,22 @@ function uiIsValidPlacement(position: number | 'pet') {
   transform: translateY(-50%);
   width: 40px;
   height: 80px;
-  background: var(--color-bg-secondary);
-  border: 2px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
   border-right: none;
-  border-radius: 8px 0 0 8px;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .roster-toggle:hover {
   background: var(--color-bg-tertiary);
+  box-shadow: var(--shadow-md);
 }
 
 .roster-toggle svg {
