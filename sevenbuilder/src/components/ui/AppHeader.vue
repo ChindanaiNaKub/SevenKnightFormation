@@ -2,6 +2,7 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-left">
+        <img src="/7k.png" alt="Seven Knights Logo" class="header-logo" />
         <h1 class="header-title">
           <span class="title-main">Seven Knights Rebirth</span>
           <span class="title-sub">Formation Builder</span>
@@ -80,6 +81,16 @@ defineEmits<{
 
 .header-left {
   flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-logo {
+  height: 48px;
+  width: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .header-title {
