@@ -28,6 +28,31 @@
           </button>
         </div>
 
+        <!-- Search Bar -->
+        <div class="search-bar">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search characters..."
+            class="search-input"
+          />
+          <button
+            v-if="searchQuery"
+            @click="searchQuery = ''"
+            class="clear-search"
+            title="Clear search"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
         <!-- Character List -->
         <div class="character-list">
           <div
@@ -110,6 +135,9 @@ const emit = defineEmits<{
 // Active tab
 const activeTab = ref('all');
 
+// Search query
+const searchQuery = ref('');
+
 // Tab configuration
 const tabs: Tab[] = [
   { id: 'all', label: 'All' },
@@ -120,15 +148,27 @@ const tabs: Tab[] = [
   { id: 'universal', label: 'Universal', filter: (c) => c.class === 'Universal' },
 ];
 
-// Filtered characters based on active tab
+// Filtered characters based on active tab and search
 const filteredCharacters = computed(() => {
-  const activeTabConfig = tabs.find(tab => tab.id === activeTab.value);
+  let filtered = props.characters;
   
-  if (!activeTabConfig || !activeTabConfig.filter) {
-    return props.characters;
+  // Apply tab filter
+  const activeTabConfig = tabs.find(tab => tab.id === activeTab.value);
+  if (activeTabConfig && activeTabConfig.filter) {
+    filtered = filtered.filter(activeTabConfig.filter);
   }
   
-  return props.characters.filter(activeTabConfig.filter);
+  // Apply search filter
+  if (searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase().trim();
+    filtered = filtered.filter(character => 
+      character.name.toLowerCase().includes(query) ||
+      character.class.toLowerCase().includes(query) ||
+      character.rarity.toLowerCase().includes(query)
+    );
+  }
+  
+  return filtered;
 });
 
 // Check if character is already placed
@@ -315,6 +355,67 @@ function handleImageError(event: Event) {
   color: white;
 }
 
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.search-icon {
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  position: absolute;
+  left: 2rem;
+  pointer-events: none;
+}
+
+.search-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.625rem 2.5rem 0.625rem 2.5rem;
+  color: #fff;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.clear-search {
+  position: absolute;
+  right: 2rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.clear-search:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
 /* Character List */
 .character-list {
   flex: 1;
@@ -485,6 +586,18 @@ function handleImageError(event: Event) {
     font-size: 0.8125rem;
     min-width: auto;
   }
+
+  .search-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .search-icon {
+    left: 1.5rem;
+  }
+
+  .clear-search {
+    right: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -495,6 +608,25 @@ function handleImageError(event: Event) {
   .tab-button {
     padding: 0.4rem 0.75rem;
     font-size: 0.75rem;
+  }
+
+  .search-bar {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .search-input {
+    font-size: 0.8125rem;
+    padding: 0.5rem 2.25rem 0.5rem 2.25rem;
+  }
+
+  .search-icon {
+    left: 1.25rem;
+    width: 18px;
+    height: 18px;
+  }
+
+  .clear-search {
+    right: 1.25rem;
   }
 }
 </style>
