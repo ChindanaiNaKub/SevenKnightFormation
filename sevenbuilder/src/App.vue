@@ -110,12 +110,16 @@
       <div class="loading-spinner"></div>
       <p class="loading-text">Loading...</p>
     </div>
+
+    <!-- Footer -->
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue';
 import AppHeader from './components/ui/AppHeader.vue';
+import AppFooter from './components/ui/AppFooter.vue';
 import FormationManager from './components/ui/FormationManager.vue';
 import CharacterSelectionModal from './components/ui/CharacterSelectionModal.vue';
 import PetSelectionModal from './components/ui/PetSelectionModal.vue';
