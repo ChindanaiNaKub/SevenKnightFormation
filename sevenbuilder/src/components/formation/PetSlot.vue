@@ -189,8 +189,8 @@ function handleMouseLeave() {
 <style scoped>
 .pet-slot {
   position: relative;
-  width: 140px;
-  height: 180px;
+  width: 150px;
+  height: 190px;
   background: var(--color-bg-secondary);
   border: 2px solid var(--color-secondary);
   border-radius: var(--radius-lg);
@@ -292,26 +292,30 @@ function handleMouseLeave() {
   width: 100%;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .pet-image {
   width: 100%;
-  height: 100%;
+  height: 130px;
   object-fit: cover;
+  object-position: center top;
   background: var(--color-bg-tertiary);
+  image-rendering: auto;
+  image-rendering: -webkit-optimize-contrast;
+  -ms-interpolation-mode: bicubic;
+  flex-shrink: 0;
 }
 
 .pet-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  padding: var(--spacing-sm);
-  padding-top: var(--spacing-lg);
+  flex: 1;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  justify-content: center;
 }
 
 .pet-header {

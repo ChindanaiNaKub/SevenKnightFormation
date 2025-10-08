@@ -229,9 +229,12 @@ function createDragImage(): HTMLElement {
 .card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border-radius: var(--radius-sm);
   background: var(--color-bg-tertiary);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
 }
 
 .in-formation-badge {

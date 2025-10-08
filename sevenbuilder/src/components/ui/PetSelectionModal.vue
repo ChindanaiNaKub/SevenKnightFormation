@@ -217,7 +217,10 @@ function handleImageError(event: Event) {
 .pet-portrait img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
 }
 
 .placed-overlay {
