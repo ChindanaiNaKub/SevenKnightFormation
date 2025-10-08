@@ -9,7 +9,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_kree',
     name: 'Kree',
-    image: '/pets/Kree.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_4.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Dual Buff',
@@ -18,7 +18,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_richel',
     name: 'Richel',
-    image: '/pets/Richel.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_3.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Dual Buff',
@@ -27,7 +27,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_ruu',
     name: 'Ruu',
-    image: '/pets/Ruu.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_1.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Defense Boost',
@@ -36,7 +36,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_pike',
     name: 'Pike',
-    image: '/pets/Pike.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_5.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Dual Buff',
@@ -45,7 +45,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_eri',
     name: 'Eri',
-    image: '/pets/Eri.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_33.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Hero Drop Rate Boost',
@@ -54,7 +54,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_mick',
     name: 'Mick',
-    image: '/pets/Mick.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_31.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Gold Boost',
@@ -63,7 +63,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_mole',
     name: 'Mole',
-    image: '/pets/Mole.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_32.png',
     level: 30,
     rarity: 'Legendary',
     passiveSkill: 'Equipment Drop Rate Boost',
@@ -74,7 +74,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_sherry',
     name: 'Sherry',
-    image: '/pets/Sherry.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_21.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Physical Attack Boost',
@@ -83,7 +83,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_littlefeng',
     name: 'Little Feng',
-    image: '/pets/Little_Feng.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_29.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Crit Damage Boost',
@@ -92,7 +92,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_nina',
     name: 'Nina',
-    image: '/pets/Nina.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_28.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Crit Rate Boost',
@@ -101,7 +101,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_croa',
     name: 'Croa',
-    image: '/pets/Croa.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_16.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'All Attack Boost',
@@ -110,7 +110,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_mewmew',
     name: 'Mewmew',
-    image: '/pets/Mewmew.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_30.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Damage Boost',
@@ -119,7 +119,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_note',
     name: 'Note',
-    image: '/pets/Note.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_18.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Magic Attack Boost',
@@ -128,7 +128,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_paragon',
     name: 'Paragon',
-    image: '/pets/Paragon.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_17.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Defense Boost',
@@ -137,7 +137,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_hellepin',
     name: 'Hellepin',
-    image: '/pets/Hellepin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_12.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Block Rate Boost',
@@ -146,7 +146,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_doo',
     name: 'Doo',
-    image: '/pets/Doo.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_35.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Equipment Drop Rate Boost',
@@ -155,7 +155,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_mimic',
     name: 'Mimic',
-    image: '/pets/Mimic.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_34.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Gold Boost',
@@ -164,7 +164,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_nikki',
     name: 'Nikki',
-    image: '/pets/Nikki.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_20.png',
     level: 25,
     rarity: 'Rare',
     passiveSkill: 'Effect Hit Rate Boost',
@@ -175,7 +175,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_jucy',
     name: 'Jucy',
-    image: '/pets/Jucy.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_11.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Physical Attack Boost',
@@ -184,7 +184,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_yuu',
     name: 'Yuu',
-    image: '/pets/Yuu.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_15.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Magic Attack Boost',
@@ -193,7 +193,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_bay',
     name: 'Bay',
-    image: '/pets/Bay.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_19.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Weakness Hit Chance Boost',
@@ -202,7 +202,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_likuh',
     name: 'Li-kuh',
-    image: '/pets/Li_kuh.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_10.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Block Rate Boost',
@@ -211,7 +211,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_hevepin',
     name: 'Hevepin',
-    image: '/pets/Hevepin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_13.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Defense Boost',
@@ -220,7 +220,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_jenipper',
     name: 'Jenipper',
-    image: '/pets/Jenipper.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_14.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Max HP Boost',
@@ -229,7 +229,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_aivan',
     name: 'Aivan',
-    image: '/pets/Aivan.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_8.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Max HP Boost',
@@ -238,7 +238,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_karen',
     name: 'Karen',
-    image: '/pets/Karen.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_9.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Healing Boost',
@@ -247,7 +247,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_rrl',
     name: 'R-RL',
-    image: '/pets/R_RL.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_22.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Effect Hit Rate Boost',
@@ -256,7 +256,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_racco',
     name: 'Racco',
-    image: '/pets/Racco.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_25.png',
     level: 20,
     rarity: 'Uncommon',
     passiveSkill: 'Effect Resist Boost',
@@ -267,7 +267,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_poori',
     name: 'Poori',
-    image: '/pets/Poori.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_23.png',
     level: 15,
     rarity: 'Common',
     passiveSkill: 'Physical Attack Boost',
@@ -276,7 +276,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_aya',
     name: 'Aya',
-    image: '/pets/Aya.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_24.png',
     level: 15,
     rarity: 'Common',
     passiveSkill: 'Magic Attack Boost',
@@ -285,7 +285,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_halpy',
     name: 'Halpy',
-    image: '/pets/Halpy.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_26.png',
     level: 15,
     rarity: 'Common',
     passiveSkill: 'Max HP Boost',
@@ -294,7 +294,7 @@ export const pets: Pet[] = [
   {
     id: 'pet_sarana',
     name: 'Sarana',
-    image: '/pets/Sarana.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_27.png',
     level: 15,
     rarity: 'Common',
     passiveSkill: 'Defense Boost',
