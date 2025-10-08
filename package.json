@@ -1,0 +1,12 @@
+{
+  "name": "7k-character-downloader",
+  "version": "1.0.0",
+  "description": "Download Seven Knights character images from GameWith",
+  "main": "download-characters.js",
+  "scripts": {
+    "download": "node download-characters.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  }
+}

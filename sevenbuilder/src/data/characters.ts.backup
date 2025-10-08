@@ -10,7 +10,7 @@ export const characters: Character[] = [
   {
     id: 'char_leo',
     name: 'Leo',
-    image: '/characters/Leo.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_306.png',
     level: 50,
     rarity: 'Legendary (SP)',
     class: 'Attack',
@@ -25,7 +25,7 @@ export const characters: Character[] = [
   {
     id: 'char_kagura',
     name: 'Kagura',
-    image: '/characters/Kagura.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -38,7 +38,7 @@ export const characters: Character[] = [
   {
     id: 'char_amelia',
     name: 'Amelia',
-    image: '/characters/Amelia.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -53,7 +53,7 @@ export const characters: Character[] = [
   {
     id: 'char_rudy',
     name: 'Rudy',
-    image: '/characters/Rudy.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_9.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Defence',
@@ -66,7 +66,7 @@ export const characters: Character[] = [
   {
     id: 'char_rachel',
     name: 'Rachel',
-    image: '/characters/Rachel.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_12.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -79,7 +79,7 @@ export const characters: Character[] = [
   {
     id: 'char_eileene',
     name: 'Eileene',
-    image: '/characters/Eileene.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_15.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -92,7 +92,7 @@ export const characters: Character[] = [
   {
     id: 'char_spike',
     name: 'Spike',
-    image: '/characters/Spike.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_18.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -105,7 +105,7 @@ export const characters: Character[] = [
   {
     id: 'char_jave',
     name: 'Jave',
-    image: '/characters/Jave.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -118,7 +118,7 @@ export const characters: Character[] = [
   {
     id: 'char_kris',
     name: 'Kris',
-    image: '/characters/Kris.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -131,7 +131,7 @@ export const characters: Character[] = [
   {
     id: 'char_dellons',
     name: 'Dellons',
-    image: '/characters/Dellons.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -144,7 +144,7 @@ export const characters: Character[] = [
   {
     id: 'char_vanessa',
     name: 'Vanessa',
-    image: '/characters/Vanessa.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -159,7 +159,7 @@ export const characters: Character[] = [
   {
     id: 'char_ace',
     name: 'Ace',
-    image: '/characters/Ace.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_33.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -172,7 +172,7 @@ export const characters: Character[] = [
   {
     id: 'char_shane',
     name: 'Shane',
-    image: '/characters/Shane.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_99.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -185,7 +185,7 @@ export const characters: Character[] = [
   {
     id: 'char_espada',
     name: 'Espada',
-    image: '/characters/Espada.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_51.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -198,7 +198,7 @@ export const characters: Character[] = [
   {
     id: 'char_lina',
     name: 'Lina',
-    image: '/characters/Lina.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_147.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -211,7 +211,7 @@ export const characters: Character[] = [
   {
     id: 'char_teo',
     name: 'Teo',
-    image: '/characters/Teo.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -224,7 +224,7 @@ export const characters: Character[] = [
   {
     id: 'char_yeonhee',
     name: 'Yeonhee',
-    image: '/characters/Yeonhee.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -237,7 +237,7 @@ export const characters: Character[] = [
   {
     id: 'char_karma',
     name: 'Karma',
-    image: '/characters/Karma.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -250,7 +250,7 @@ export const characters: Character[] = [
   {
     id: 'char_rin',
     name: 'Rin',
-    image: '/characters/Rin.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -263,7 +263,7 @@ export const characters: Character[] = [
   {
     id: 'char_mercure',
     name: 'Mercure',
-    image: '/characters/Mercure.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -276,7 +276,7 @@ export const characters: Character[] = [
   {
     id: 'char_taka',
     name: 'Taka',
-    image: '/characters/Taka.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -289,7 +289,7 @@ export const characters: Character[] = [
   {
     id: 'char_fai',
     name: 'Fai',
-    image: '/characters/Fai.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -302,7 +302,7 @@ export const characters: Character[] = [
   {
     id: 'char_rosie',
     name: 'Rosie',
-    image: '/characters/Rosie.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -315,7 +315,7 @@ export const characters: Character[] = [
   {
     id: 'char_juri',
     name: 'Juri',
-    image: '/characters/Juri.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -328,7 +328,7 @@ export const characters: Character[] = [
   {
     id: 'char_colt',
     name: 'Colt',
-    image: '/characters/Colt.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -341,7 +341,7 @@ export const characters: Character[] = [
   {
     id: 'char_platin',
     name: 'Platin',
-    image: '/characters/Platin.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -354,7 +354,7 @@ export const characters: Character[] = [
   {
     id: 'char_miho',
     name: 'Miho',
-    image: '/characters/Miho.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -367,7 +367,7 @@ export const characters: Character[] = [
   {
     id: 'char_orly',
     name: 'Orly',
-    image: '/characters/Orly.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -380,7 +380,7 @@ export const characters: Character[] = [
   {
     id: 'char_klahan',
     name: 'Klahan',
-    image: '/characters/Klahan.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -393,7 +393,7 @@ export const characters: Character[] = [
   {
     id: 'char_silvesta',
     name: 'Silvesta',
-    image: '/characters/Silvesta.png',
+    image: '/placeholder-character.svg',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -406,7 +406,7 @@ export const characters: Character[] = [
   {
     id: 'char_ruri',
     name: 'Ruri',
-    image: '/characters/Ruri.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_156.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -419,7 +419,7 @@ export const characters: Character[] = [
   {
     id: 'char_nia',
     name: 'Nia',
-    image: '/characters/Nia.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_108.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -432,7 +432,7 @@ export const characters: Character[] = [
   {
     id: 'char_chancellor',
     name: 'Chancellor',
-    image: '/characters/Chancellor.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_105.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Defence',
@@ -445,7 +445,7 @@ export const characters: Character[] = [
   {
     id: 'char_alice',
     name: 'Alice',
-    image: '/characters/Alice.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_45.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -458,7 +458,7 @@ export const characters: Character[] = [
   {
     id: 'char_aragon',
     name: 'Aragon',
-    image: '/characters/Aragon.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_39.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Defence',
@@ -471,7 +471,7 @@ export const characters: Character[] = [
   {
     id: 'char_velika',
     name: 'Velika',
-    image: '/characters/Velika.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_129.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -484,7 +484,7 @@ export const characters: Character[] = [
   {
     id: 'char_rook',
     name: 'Rook',
-    image: '/characters/Rook.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_150.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Defence',
@@ -497,7 +497,7 @@ export const characters: Character[] = [
   {
     id: 'char_yushin',
     name: 'Yu Shin',
-    image: '/characters/YuShin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_174.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -510,7 +510,7 @@ export const characters: Character[] = [
   {
     id: 'char_bidam',
     name: 'Bi Dam',
-    image: '/characters/BiDam.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_168.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -523,7 +523,7 @@ export const characters: Character[] = [
   {
     id: 'char_pascal',
     name: 'Pascal',
-    image: '/characters/Pascal.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_117.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Magic',
@@ -536,7 +536,7 @@ export const characters: Character[] = [
   {
     id: 'char_ballista',
     name: 'Ballista',
-    image: '/characters/Ballista.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_120.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -549,7 +549,7 @@ export const characters: Character[] = [
   {
     id: 'char_knox',
     name: 'Knox',
-    image: '/characters/Knox.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_111.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Defence',
@@ -562,7 +562,7 @@ export const characters: Character[] = [
   {
     id: 'char_daisy',
     name: 'Daisy',
-    image: '/characters/Daisy.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_357.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -575,7 +575,7 @@ export const characters: Character[] = [
   {
     id: 'char_sieg',
     name: 'Sieg',
-    image: '/characters/Sieg.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_78.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Attack',
@@ -588,7 +588,7 @@ export const characters: Character[] = [
   {
     id: 'char_biscuit',
     name: 'Biscuit',
-    image: '/characters/Biscuit.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_336.png',
     level: 50,
     rarity: 'Legendary',
     class: 'Support',
@@ -603,7 +603,7 @@ export const characters: Character[] = [
   {
     id: 'char_evan',
     name: 'Evan',
-    image: '/characters/Evan.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_3.png',
     level: 40,
     rarity: 'Rare',
     class: 'Defence',
@@ -616,7 +616,7 @@ export const characters: Character[] = [
   {
     id: 'char_karin',
     name: 'Karin',
-    image: '/characters/Karin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_6.png',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -629,7 +629,7 @@ export const characters: Character[] = [
   {
     id: 'char_ariel',
     name: 'Ariel',
-    image: '/characters/Ariel.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_42.png',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -642,7 +642,7 @@ export const characters: Character[] = [
   {
     id: 'char_bane',
     name: 'Bane',
-    image: '/characters/Bane.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_48.png',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -655,7 +655,7 @@ export const characters: Character[] = [
   {
     id: 'char_heavenia',
     name: 'Heavenia',
-    image: '/characters/Heavenia.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -668,7 +668,7 @@ export const characters: Character[] = [
   {
     id: 'char_hellenia',
     name: 'Hellenia',
-    image: '/characters/Hellenia.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Defence',
@@ -681,7 +681,7 @@ export const characters: Character[] = [
   {
     id: 'char_karon',
     name: 'Karon',
-    image: '/characters/Karon.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -694,7 +694,7 @@ export const characters: Character[] = [
   {
     id: 'char_catty',
     name: 'Catty',
-    image: '/characters/Catty.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -707,7 +707,7 @@ export const characters: Character[] = [
   {
     id: 'char_chloe',
     name: 'Chloe',
-    image: '/characters/Chloe.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -720,7 +720,7 @@ export const characters: Character[] = [
   {
     id: 'char_jane',
     name: 'Jane',
-    image: '/characters/Jane.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -733,7 +733,7 @@ export const characters: Character[] = [
   {
     id: 'char_jupy',
     name: 'Jupy',
-    image: '/characters/Jupy.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -746,7 +746,7 @@ export const characters: Character[] = [
   {
     id: 'char_joker',
     name: 'Joker',
-    image: '/characters/Joker.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -759,7 +759,7 @@ export const characters: Character[] = [
   {
     id: 'char_sylvia',
     name: 'Sylvia',
-    image: '/characters/Sylvia.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -772,7 +772,7 @@ export const characters: Character[] = [
   {
     id: 'char_jin',
     name: 'Jin',
-    image: '/characters/Jin.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -785,7 +785,7 @@ export const characters: Character[] = [
   {
     id: 'char_snipper',
     name: 'Snipper',
-    image: '/characters/Snipper.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -798,7 +798,7 @@ export const characters: Character[] = [
   {
     id: 'char_sera',
     name: 'Sera',
-    image: '/characters/Sera.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -811,7 +811,7 @@ export const characters: Character[] = [
   {
     id: 'char_noho',
     name: 'Noho',
-    image: '/characters/Noho.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -824,7 +824,7 @@ export const characters: Character[] = [
   {
     id: 'char_victoria',
     name: 'Victoria',
-    image: '/characters/Victoria.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -837,7 +837,7 @@ export const characters: Character[] = [
   {
     id: 'char_blackrose',
     name: 'Black Rose',
-    image: '/characters/Black_Rose.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -850,7 +850,7 @@ export const characters: Character[] = [
   {
     id: 'char_may',
     name: 'May',
-    image: '/characters/May.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -863,7 +863,7 @@ export const characters: Character[] = [
   {
     id: 'char_yui',
     name: 'Yui',
-    image: '/characters/Yui.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -876,7 +876,7 @@ export const characters: Character[] = [
   {
     id: 'char_yuri',
     name: 'Yuri',
-    image: '/characters/Yuri.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -889,7 +889,7 @@ export const characters: Character[] = [
   {
     id: 'char_lania',
     name: 'Lania',
-    image: '/characters/Lania.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -902,7 +902,7 @@ export const characters: Character[] = [
   {
     id: 'char_li',
     name: 'Li',
-    image: '/characters/Li.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Defence',
@@ -915,7 +915,7 @@ export const characters: Character[] = [
   {
     id: 'char_lucy',
     name: 'Lucy',
-    image: '/characters/Lucy.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -928,7 +928,7 @@ export const characters: Character[] = [
   {
     id: 'char_rei',
     name: 'Rei',
-    image: '/characters/Rei.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -941,7 +941,7 @@ export const characters: Character[] = [
   {
     id: 'char_asura',
     name: 'Asura',
-    image: '/characters/Asura.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -954,7 +954,7 @@ export const characters: Character[] = [
   {
     id: 'char_soi',
     name: 'Soi',
-    image: '/characters/Soi.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -967,7 +967,7 @@ export const characters: Character[] = [
   {
     id: 'char_fengyan',
     name: 'Feng Yan',
-    image: '/characters/FengYan.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -980,7 +980,7 @@ export const characters: Character[] = [
   {
     id: 'char_cleo',
     name: 'Cleo',
-    image: '/characters/Cleo.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -993,7 +993,7 @@ export const characters: Character[] = [
   {
     id: 'char_sarah',
     name: 'Sarah',
-    image: '/characters/Sarah.png',
+    image: '/placeholder-character.svg',
     level: 40,
     rarity: 'Rare',
     class: 'Support',
@@ -1006,7 +1006,7 @@ export const characters: Character[] = [
   {
     id: 'char_yumi',
     name: 'Yumi',
-    image: '/characters/Yumi.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_291.png',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -1019,7 +1019,7 @@ export const characters: Character[] = [
   {
     id: 'char_bella',
     name: 'Bella',
-    image: '/characters/Bella.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_279.png',
     level: 40,
     rarity: 'Rare',
     class: 'Magic',
@@ -1032,7 +1032,7 @@ export const characters: Character[] = [
   {
     id: 'char_hokin',
     name: 'Hokin',
-    image: '/characters/Hokin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_282.png',
     level: 40,
     rarity: 'Rare',
     class: 'Attack',
@@ -1045,7 +1045,7 @@ export const characters: Character[] = [
   {
     id: 'char_rahkun',
     name: 'Rahkun',
-    image: '/characters/Rahkun.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_297.png',
     level: 40,
     rarity: 'Rare',
     class: 'Defence',
@@ -1060,7 +1060,7 @@ export const characters: Character[] = [
   {
     id: 'char_ahkan',
     name: 'Ahkan',
-    image: '/characters/Ahkan.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Defence',
@@ -1073,7 +1073,7 @@ export const characters: Character[] = [
   {
     id: 'char_jumon',
     name: 'Jumon',
-    image: '/characters/Jumon.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Magic',
@@ -1086,7 +1086,7 @@ export const characters: Character[] = [
   {
     id: 'char_shiro',
     name: 'Shiro',
-    image: '/characters/Shiro.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Defence',
@@ -1099,7 +1099,7 @@ export const characters: Character[] = [
   {
     id: 'char_derek',
     name: 'Derek',
-    image: '/characters/Derek.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Support',
@@ -1112,7 +1112,7 @@ export const characters: Character[] = [
   {
     id: 'char_howl',
     name: 'Howl',
-    image: '/characters/Howl.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Support',
@@ -1125,7 +1125,7 @@ export const characters: Character[] = [
   {
     id: 'char_kohkun',
     name: 'Kohkun',
-    image: '/characters/Kohkun.png',
+    image: '/placeholder-character.svg',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1138,7 +1138,7 @@ export const characters: Character[] = [
   {
     id: 'char_pepe',
     name: 'Pepe',
-    image: '/characters/Pepe.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_276.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Support',
@@ -1151,7 +1151,7 @@ export const characters: Character[] = [
   {
     id: 'char_pooki',
     name: 'Pooki',
-    image: '/characters/Pooki.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_264.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1164,7 +1164,7 @@ export const characters: Character[] = [
   {
     id: 'char_fruna',
     name: 'Fruna',
-    image: '/characters/Fruna.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_267.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1177,7 +1177,7 @@ export const characters: Character[] = [
   {
     id: 'char_frose',
     name: 'Frose',
-    image: '/characters/Frose.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_270.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Defence',
@@ -1190,7 +1190,7 @@ export const characters: Character[] = [
   {
     id: 'char_beskin',
     name: 'Beskin',
-    image: '/characters/Beskin.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_273.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1203,7 +1203,7 @@ export const characters: Character[] = [
   {
     id: 'char_popo',
     name: 'Popo',
-    image: '/characters/Popo.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_285.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1216,7 +1216,7 @@ export const characters: Character[] = [
   {
     id: 'char_pon',
     name: 'Pon',
-    image: '/characters/Pon.png',
+    image: 'https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/chara_288.png',
     level: 30,
     rarity: 'Uncommon',
     class: 'Attack',
@@ -1231,7 +1231,7 @@ export const characters: Character[] = [
   {
     id: 'char_aaron',
     name: 'Aaron',
-    image: '/characters/Aaron.png',
+    image: '/placeholder-character.svg',
     level: 20,
     rarity: 'Common',
     class: 'Attack',
@@ -1244,7 +1244,7 @@ export const characters: Character[] = [
   {
     id: 'char_wendy',
     name: 'Wendy',
-    image: '/characters/Wendy.png',
+    image: '/placeholder-character.svg',
     level: 20,
     rarity: 'Common',
     class: 'Support',
@@ -1257,7 +1257,7 @@ export const characters: Character[] = [
   {
     id: 'char_ichi',
     name: 'Ichi',
-    image: '/characters/Ichi.png',
+    image: '/placeholder-character.svg',
     level: 20,
     rarity: 'Common',
     class: 'Support',
@@ -1270,7 +1270,7 @@ export const characters: Character[] = [
   {
     id: 'char_taurus',
     name: 'Taurus',
-    image: '/characters/Taurus.png',
+    image: '/placeholder-character.svg',
     level: 20,
     rarity: 'Common',
     class: 'Attack',
@@ -1283,7 +1283,7 @@ export const characters: Character[] = [
   {
     id: 'char_ahri',
     name: 'Ahri',
-    image: '/characters/Ahri.png',
+    image: '/placeholder-character.svg',
     level: 20,
     rarity: 'Common',
     class: 'Support',
